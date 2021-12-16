@@ -15,3 +15,5 @@ Included in the 17 SDGs is Goal 15, which aims to ‘Protect, restore and promot
 **Woodland as a percentage of land area = (Area of woodland /Land area ) * 100**
 
 Certified woodland as a percentage of land area = (Area of certified woodland / Land area) * 100
+
+
