@@ -31,7 +31,8 @@ According to the FAO, Forest is defined as: “land spanning more than 0.5 hecta
        
        
 ### Outputs
-       table with 
+       table with LAD codes and forest area, SAM and PFATLA and geometry for plotting
+       
 
 
 
