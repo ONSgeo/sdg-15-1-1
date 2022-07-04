@@ -25,11 +25,6 @@ According to the FAO, Forest is defined as: “land spanning more than 0.5 hecta
 
 ### Outputs
 
-### Calculations	
 
-
-**Woodland as a percentage of land area = (Area of woodland /Land area ) * 100**
-
-Certified woodland as a percentage of land area = (Area of certified woodland / Land area) * 100
 
 
