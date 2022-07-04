@@ -15,16 +15,23 @@ According to the FAO, Forest is defined as: “land spanning more than 0.5 hecta
 
 ### Data
        Forest/Woodland data - Forest Services (GB) and DAERA (NI)
-       Land area - SAM from ONS Open Geography portal
+       Land area - Local authority districts (LADs) boundaries from ONS Open Geography portal
+       SAM for LADs from ONS Open Geography portal
 
 
 ### Methodology
        Forest area as a proportion of total land area (PFATLA) = Forest area (reference year)/Land area (reference year)*100           
 
 ### Analysis
-
+       function to call forest layer
+       function to call land area/boundary layer
+       intersection analysis to spatially join and attribute forest parcels to LAD boundaries
+       join intersect output to SAM
+       calculate Forest area as a proportion of total land area (PFATLA)
+       
+       
 ### Outputs
-
+       table with 
 
 
 
