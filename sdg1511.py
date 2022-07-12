@@ -108,7 +108,31 @@ if __name__ == '__main__':
     print(lad19bfe.head())
     
 #intersect lad boundaries with forest layer to create a spatial join
- 
+
+def do_spatial_join(nfi19ni, lad19bfe):
+    """
+    Returns spatial join of LAs with forests
+
+    Parameters:
+    -----------
+    gdf_LA (gpd.GeoDataFrame):
+        Geodataframe of Local Authorities
+
+    gdf_forest (gpd.GeoDataFrame):
+        Geodataframe of forests
+
+    Returns:
+    --------
+    gdf_join (gpd.GeoDataFrame):
+        GeodataFrame of forests joined to LAS
+-
+    """
+    print("WRITE CODE TO DO JOIN AND RETURN JOINED GDF")
+    # CODE
+    # return gdf_join
+    
+    
+    
 lad19bfe_sam = lad19bfe.merge(sam19lad, on='LAD19CD')    
 lad19bfe_sam.head()
 lad19bfe_sam.to_file(r'D:\SDGs\SDG_15_1_1\intermediate\lad19bfe_sam.shp')
