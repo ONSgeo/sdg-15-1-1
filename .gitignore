@@ -1,3 +1,5 @@
-data
-documentation
-intermediate
+/data
+/docs
+/intermediate
+/analysis_outputs
+/QA

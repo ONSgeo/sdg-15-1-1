@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Aug 16 11:36:12 2022
-
-@author: shavar
-"""
+#author: robert shava
 #project: SDG indicator 15.1.1: Forest area as a proportion of total land area
-
+"""
 #import libraries
 from pathlib import Path
 import geopandas as gpd
@@ -16,7 +13,20 @@ import matplotlib.pyplot as plt
 import shapely
 import csv
 
+"""
+forests = [r'R:\SDGs\SDG_15_1_1\data\gb_nfi\nfi_gb_2017.shp',r'R:\SDGs\SDG_15_1_1\data\gb_nfi\nfi_gb_2018.shp',r'R:\SDGs\SDG_15_1_1\data\gb_nfi\nfi_gb_2019.shp']
+lad19BFE = gpd.read_file(r'R:\SDGs\SDG_15_1_1\data\LAD\Local_Authority_Districts__December_2019__Boundaries_UK_BFE.shp')
+display(lad19BFE.head())
 
+for forest in forests:
+    nfi = gpd.read_file(forest)
+    nfi.columns = nfi.columns.str.upper() #capitalise column names
+    filt_cat=(nfi['CATEGORY']=='Woodland') # filter olny Woodland from non-woodland
+    nfi_wood=nfi.loc[filt_cat]
+    nfi_wood_bng = nfi_wood.to_crs(27700) # convert crs to british national grid 
+    display(nfi_wood_bng.head()) # check if code has run successfully
+
+"""
 # function to open geodataframe of shapefiles with specified parameters
 def open_geodataframe(shapefile_path, cols=None, index=None, epsg=27700):
     
@@ -88,6 +98,7 @@ def open_dataframe_csv(csv_filepath,cols=None,index=None):
         df = df.set_index(index)
     return df
 
+
 if __name__ == '__main__':
     # import forst and lad boundaries as geodataframes and SAM as csv
     nfi19ni = open_geodataframe(r'D:\SDGs\SDG_15_1_1\data\NIforest\draftNIWoodlandBasemapAtApril2019.shp')
@@ -96,17 +107,49 @@ if __name__ == '__main__':
     print(sam19lad.head())
     lad19bfe = open_geodataframe(r'D:\SDGs\SDG_15_1_1\data\LAD\Local_Authority_Districts__December_2019__Boundaries_UK_BFE.shp')
     print(lad19bfe.head())
-    
     # do spatial join between forest layer and lad boundaries layer
     gdf_join_ni = gpd.sjoin(nfi19ni, lad19bfe, how='left')
     print(gdf_join_ni.head())
-    
-    # group by LAD19CD
-    gdf_join_ni_groupbylad = gdf_join_ni.groupby(['LAD19CD'])
-    print(gdf_join_ni_groupbylad.head())
-    
-    # merge gdf_join_ni and SAM csv to add lad area column to gdf_join_ni and calculate area
-    gdf_join_ni_merge_sam19lad = gdf_join_ni.merge(sam19lad, on='LAD19CD')
-    print(gdf_join_ni_merge_sam19lad.head())
+    # join gdf_join_ni and SAM csv to add lad area column to gdf_join_ni and calculate area
     
     
+
+
+    
+#intersect lad boundaries with forest layer to create a spatial join
+
+
+def do_spatial_join(gdf_LA, gdf_forest):
+    """
+    Returns spatial join of LAs with forests
+
+    Parameters:
+    -----------
+    gdf_LA (gpd.GeoDataFrame):
+        Geodataframe of Local Authorities
+
+    gdf_forest (gpd.GeoDataFrame):
+        Geodataframe of forests
+
+    Returns:
+    --------
+    gdf_join (gpd.GeoDataFrame):
+        GeodataFrame of forests joined to LAS
+-
+    """
+    print("WRITE CODE TO DO JOIN AND RETURN JOINED GDF")
+    gdf_join = gpd.sjoin(gdf_forest, gdf_LA, how='left')
+    return gdf_join
+
+do_spatial_join(nfi19ni, lad19bfe)
+
+gdf_join.head()
+    
+lad19bfe_sam = lad19bfe.merge(sam19lad, on='LAD19CD')    
+lad19bfe_sam.head()
+lad19bfe_sam.to_file(r'D:\SDGs\SDG_15_1_1\intermediate\lad19bfe_sam.shp')
+
+lad19bfe_samgpd = gpd.read_file(r'D:\SDGs\SDG_15_1_1\intermediate\lad19bfe_sam.shp')
+nfi19ni_lad19 = gpd.overlay(nfi19ni, lad19bfe_samgpd, how='intersection')
+nfi19ni_lad19.head()
+nfi19ni_lad19.to_file(r'D:\SDGs\SDG_15_1_1\intermediate\nfi19ni_lad19.shp')
