@@ -1,0 +1,31 @@
+[project]
+name = "sdg_15_1_1"
+authors = [
+    {name="Lucy Astley-Jones"},
+    {name="Ed Cuss"},
+]
+description = "A script for the SDG 15.1.1 Forest Area data"
+readme = "README.md"
+requires-python = ">=3.8"
+version = "0.0.1"
+dependencies = [
+    "geopandas=0.13.2",
+    "pandas=2.0.3",
+    "numpy=1.20.3",
+    "matplotlib=3.2.2",
+    "shapely=1.7.1",
+    "typing",
+]
+
+[project.optional-dependencies]
+lint = [
+    "black<24",
+    "ruff",
+]
+
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+extend-select = ["I", "W"]
+line-length = 79

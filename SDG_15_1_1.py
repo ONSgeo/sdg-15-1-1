@@ -27,6 +27,7 @@ for forest in forests:
     display(nfi_wood_bng.head()) # check if code has run successfully
 
 """
+
 # function to open geodataframe of shapefiles with specified parameters
 def open_geodataframe(shapefile_path: str, cols: list = None, index: str = None, epsg: int = 27700) -> gpd.GeoDataFrame:
     
@@ -53,8 +54,10 @@ def open_geodataframe(shapefile_path: str, cols: list = None, index: str = None,
         Geodataframe of shapefile opened with columns and index set as selected
 
     """
-    shp = Path(str(shapefile_path)).resolve()
-    gdf = gpd.read_file(shp)
+    # This doesn't seem relevant or useful
+    #shp = Path(str(shapefile_path)).resolve()
+    
+    gdf = gpd.read_file(shapefile_path)
     if cols:
         gdf = gdf[cols]
     if index:
@@ -67,7 +70,9 @@ def open_geodataframe(shapefile_path: str, cols: list = None, index: str = None,
 
 #function to open csv file as a pandas dataframe with specified parameters
 
+
 def open_dataframe_csv(csv_filepath: str, cols: list = None, index: str = None) -> pd.DataFrame:
+
     
     """
     Returns df of csv. If cols is None, all cols will be returned, else only cols in a list. If index is None, no index will be set
@@ -90,8 +95,9 @@ def open_dataframe_csv(csv_filepath: str, cols: list = None, index: str = None) 
         pandas Dataframe of csv opened with columns and index set as selected
         
     """
-    csv = Path(str(csv_filepath)).resolve()
-    df=pd.read_csv(csv)
+    #csv = Path(str(csv_filepath)).resolve()
+    
+    df = pd.read_csv(csv_filepath)
     if cols:
         df = df[cols]
     if index:
@@ -99,27 +105,12 @@ def open_dataframe_csv(csv_filepath: str, cols: list = None, index: str = None) 
     return df
 
 
-if __name__ == '__main__':
-    # import forst and lad boundaries as geodataframes and SAM as csv
-    nfi19ni = open_geodataframe(r'D:\SDGs\SDG_15_1_1\data\NIforest\draftNIWoodlandBasemapAtApril2019.shp')
-    print(nfi19ni.head())
-    sam19lad = open_dataframe_csv(r'D:\SDGs\SDG_15_1_1\data\SAM_AdministrativeAreas_2019\SAM_LAD_DEC_2019_UK.csv',cols=['LAD19CD','LAD19NM','AREALHECT'],index='LAD19CD')
-    print(sam19lad.head())
-    lad19bfe = open_geodataframe(r'D:\SDGs\SDG_15_1_1\data\LAD\Local_Authority_Districts__December_2019__Boundaries_UK_BFE.shp')
-    print(lad19bfe.head())
-    # do spatial join between forest layer and lad boundaries layer
-    gdf_join_ni = gpd.sjoin(nfi19ni, lad19bfe, how='left')
-    print(gdf_join_ni.head())
-    # join gdf_join_ni and SAM csv to add lad area column to gdf_join_ni and calculate area
-    
-    
-
-
-    
+   
 #intersect lad boundaries with forest layer to create a spatial join
 
 
 def do_spatial_join(gdf_LA: gpd.GeoDataFrame, gdf_forest: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+
     """
     Returns spatial join of LAs with forests
 
@@ -135,21 +126,45 @@ def do_spatial_join(gdf_LA: gpd.GeoDataFrame, gdf_forest: gpd.GeoDataFrame) -> g
     --------
     gdf_join (gpd.GeoDataFrame):
         GeodataFrame of forests joined to LAS
--
+
     """
-    print("WRITE CODE TO DO JOIN AND RETURN JOINED GDF")
     gdf_join = gpd.sjoin(gdf_forest, gdf_LA, how='left')
     return gdf_join
 
-do_spatial_join(nfi19ni, lad19bfe)
 
-gdf_join.head()
+
+if __name__ == '__main__':
     
-lad19bfe_sam = lad19bfe.merge(sam19lad, on='LAD19CD')    
-lad19bfe_sam.head()
-lad19bfe_sam.to_file(r'D:\SDGs\SDG_15_1_1\intermediate\lad19bfe_sam.shp')
+    root_dir = 'D:/SDGs/SDG_15_1_1'
+    
+    # import forst and lad boundaries as geodataframes and SAM as csv
+    nfi19ni = open_geodataframe(f'{root_dir}/data/NIforest/draftNIWoodlandBasemapAtApril2019.shp')
+    print(nfi19ni.head())
+    
+    sam19lad = open_dataframe_csv(f'{root_dir}/data/SAM_AdministrativeAreas_2019/SAM_LAD_DEC_2019_UK.csv', cols=['LAD19CD','LAD19NM','AREALHECT'], index='LAD19CD')
+    
+    print(sam19lad.head())
+    
+    lad19bfe = open_geodataframe(f'{root_dir}/data/LAD/Local_Authority_Districts__December_2019__Boundaries_UK_BFE.shp')
+    print(lad19bfe.head())
+    # do spatial join between forest layer and lad boundaries layer
+    
+    gdf_join_ni = gpd.sjoin(nfi19ni, lad19bfe, how='left')
+    print(gdf_join_ni.head())
+    # join gdf_join_ni and SAM csv to add lad area column to gdf_join_ni and calculate area
+    
+    #intersect lad boundaries with forest layer to create a spatial join
+    do_spatial_join(nfi19ni, lad19bfe)
 
-lad19bfe_samgpd = gpd.read_file(r'D:\SDGs\SDG_15_1_1\intermediate\lad19bfe_sam.shp')
-nfi19ni_lad19 = gpd.overlay(nfi19ni, lad19bfe_samgpd, how='intersection')
-nfi19ni_lad19.head()
-nfi19ni_lad19.to_file(r'D:\SDGs\SDG_15_1_1\intermediate\nfi19ni_lad19.shp')
+    gdf_join.head()
+
+    lad19bfe_sam = lad19bfe.merge(sam19lad, on='LAD19CD')    
+    lad19bfe_sam.head()
+    
+    lad19bfe_sam.to_file(f'{root_dir}/intermediate/lad19bfe_sam.shp')
+
+    lad19bfe_samgpd = gpd.read_file(f'{root_dir}/intermediate/lad19bfe_sam.shp')
+    nfi19ni_lad19 = gpd.overlay(nfi19ni, lad19bfe_samgpd, how='intersection')
+    nfi19ni_lad19.head()
+    
+    nfi19ni_lad19.to_file(f'{root_dir}/intermediate/nfi19ni_lad19.shp')
