@@ -1,4 +1,4 @@
-
+from typing import List, Union
 
 class SDGIndicator15_1_1:
     def __init__(self, root_dir: str) -> None:
