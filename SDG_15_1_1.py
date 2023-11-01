@@ -29,7 +29,7 @@ for forest in forests:
 """
 
 # function to open geodataframe of shapefiles with specified parameters
-def open_geodataframe(shapefile_path, cols=None, index=None, epsg=27700):
+def open_geodataframe(shapefile_path: str, cols: list = None, index: str = None, epsg: int = 27700) -> gpd.GeoDataFrame:
     
     """
     Returns gdf of shapefile. If cols is None, all cols will be returned, else only cols in a list. If index is None, no index will be set
@@ -70,7 +70,9 @@ def open_geodataframe(shapefile_path, cols=None, index=None, epsg=27700):
 
 #function to open csv file as a pandas dataframe with specified parameters
 
-def open_dataframe_csv(csv_filepath, cols=None, index=None):
+
+def open_dataframe_csv(csv_filepath: str, cols: list = None, index: str = None) -> pd.DataFrame:
+
     
     """
     Returns df of csv. If cols is None, all cols will be returned, else only cols in a list. If index is None, no index will be set
@@ -103,7 +105,12 @@ def open_dataframe_csv(csv_filepath, cols=None, index=None):
     return df
 
 
-def do_spatial_join(gdf_LA, gdf_forest):
+   
+#intersect lad boundaries with forest layer to create a spatial join
+
+
+def do_spatial_join(gdf_LA: gpd.GeoDataFrame, gdf_forest: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+
     """
     Returns spatial join of LAs with forests
 
