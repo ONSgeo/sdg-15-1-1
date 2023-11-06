@@ -11,41 +11,33 @@ from tqdm import tqdm
 
 
 class SDGBase(ABC):   
-    """The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
-
-    Attributes
-    ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
-        Description of `attr2`.
-
     """
     
+    Attributes
+    ----------
+    _root_dir : str
+        Main directory in which data is stored. 
+    _sdg_name : str
+        The specific SDG eg 'sdg_15_1_1'
+    """
+    
+   
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
-        """__summary__
+        """Defines input and output directories for data
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_in_dir: str
+            The main directory in which data is stored
+        root_out_dir: Optional[str]
+            This is for if the user wants to save the output elsewhere
+            If not the root out directory will be the same as the input directory
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
+        
         self._root_dir = root_dir
         self._sdg_name = sdg_name
         
@@ -53,84 +45,61 @@ class SDGBase(ABC):
         
         
     def set_input_data_dir(self, root_in_dir: str) -> None:
-        """__summary__
+        """Sets directory and creates folders from which data is input 
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_in_dir: str
+            The main directory in which data is stored 
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
+        
         self._input_data_dir = root_in_dir
         self.create_folders(self._input_data_dir)
 
         
     def get_input_data_dir(self) -> str:
-        """__summary__
-
-        Parameters
-        ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        """returns main directory in which data is stored.
 
         Returns
         -------
-        bool
-            __returns__
-
+        str
         """
         return self._input_data_dir
 
     
     def set_output_data_dir(self, root_out_dir: str) -> None:
-        """__summary__
+        """sets directory and creates folders for data outputs
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_out_dir: str
+            The directory in which outputs are stored
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
+        
         self._output_data_dir = f'{root_out_dir}/'
         self.create_folders(self._output_dir)
 
-        
-    def get_output_data_dir(self) -> str:
-        """__summary__
 
-        Parameters
-        ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+    def get_output_data_dir(self) -> str:
+        """Returns directory in which outputs are stored
 
         Returns
         -------
-        bool
-            __returns__
-
+        str
         """
+        
         return self._output_data_dir
 
     
-    def set_file_tree(self, input_data_dir: str = None, output_data_dir: str = None) -> None:
+    def set_file_tree(self, input_data_dir: Optional[str] = None, output_data_dir: Optional[str] = None) -> None:
         
         if input_data_dir is None:
             self._input_data_dir = f'{self._root_dir}/{self._sdg_name}_data'
@@ -151,22 +120,23 @@ class SDGBase(ABC):
             self.create_folders(branch)
 
             
-    def create_folders(self, new_dir: str) -> bool:
-        """__summary__
+    def create_folders(self, new_dir: str) -> None:
+        """Creates folders to store output data
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        new_dir: str
+            Directory in which to store output data
+  
         Returns
         -------
-        bool
-            __returns__
-
+        None
+        
+        Raises
+        -------
+            Catches any error in making the file
         """
+        
         try:
             os.makedirs(new_dir, exist_ok=True)
             print(f'Directory {new_dir} was created or already existed')
@@ -175,20 +145,20 @@ class SDGBase(ABC):
         
         
     def get_ext_files(self, inp_folder: str, ext: str, search_string: Optional[str] = None) -> List[str]:
-        """__summary__
+        """Retrieves input files
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        inp_folder: str
+            Folder containing input data of interest
+        ext: str
+            The extension being searched for
+        search_string: Optional[str]
+            Searches for keyword(s) within folder of interest
+            
         Returns
         -------
-        bool
-            __returns__
-
+        list[str]
         """
         all_files = glob.glob(f'{self.get_input_data_dir()}/{inp_folder}/*.{ext}')
         if search_string:
@@ -197,20 +167,17 @@ class SDGBase(ABC):
     
     
     def _get_read_function(self, ext: str) -> Callable:
-        """__summary__
+        """Returns the relevent read method based on the
+           input extension
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        ext: str
+            The extension being searched for
+            
         Returns
         -------
-        bool
-            __returns__
-
+        Callable
         """
         data_read_dict = {
             'csv' : pd.read_csv,
@@ -221,20 +188,22 @@ class SDGBase(ABC):
     
     
     def load_data(self, file_path: str, cols: List[str] = None, index: str = None, epsg: int = 27700) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
-        """__summary__
+        """Joins and loads data of interest as a data frame
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        file_path: str
+            Location of files of interest
+        cols: List[str]
+            Columnn of interest
+        index: str
+            Row of interest?
+        espg: int
+            ESPG code of coordinate reference system used in files of interest
 
         Returns
         -------
-        bool
-            __returns__
-
+        File: Union[pd.DataFrame, gpd.GeoDataFrame]
         """
         ext = file_path.split('.')[-1]
         read_func = self._get_read_function(ext)
@@ -252,20 +221,18 @@ class SDGBase(ABC):
 
     
     def save_data(self, file: Union[pd.DataFrame, gpd.GeoDataFrame], file_name: str) -> bool:
-        """__summary__
+        """Saves data as .csv or .shp, dependent on dataframe
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        file: Union[pd.DataFrame, gpd.DataFrame]
+            Data of interest
+        file_name: str
+            Name of file containing output data of interest.
 
         Returns
         -------
         bool
-            __returns__
-
         """
         if isinstance(file, pd.DataFrame):
             file.to_csv(f'{self.get_output_data_dir()}/{file_name}.csv')

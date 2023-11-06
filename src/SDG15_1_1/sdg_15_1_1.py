@@ -7,59 +7,58 @@ import matplotlib.pyplot as plt
 
 
 class SDG15_1_1(SDGBase):
-    """The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
+        """Retrieval, analysis and output of data concerning Sustainable Development Goals 
 
     Attributes
     ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
-        Description of `attr2`.
+    Local Authority Districts (LAD)
+        Boundaries of Local Authority districts in the UK. 
+    Standard Area Measurements (SAM)
+        The standard area measurement of each Local Authority District.
+    National Forest Inventory (NFI)
+        Woodland cover
 
     """
     
+      
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
-        """__summary__
+        """To retrieve input and save output data
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        root_in_dir: str
+            The main directory that the data is stored
+            For example: 'C:\Users\{user}\Scripts\geo_work\sdg_15_1_1\data'
+        root_out_dir: Optional[str]
+            This is for if the user wants to save the output elsewhere
+            If not the root out directory will be the same as the input directory
+ 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
+        
         self._sdg_name = 'sdg_15_1_1'
         super().__init__(self._sdg_name, root_dir, data_dir, output_dir)
 
         
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
-        """__summary__
+        
+        """Retrieves files based on year of interest
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        inp_list: List[str]
+            The input files.
+        year: int
+            The year each file was published. 
+        n: int ?
 
         Returns
         -------
-        bool
-            __returns__
+        List: str
+            
+        
 
         """
         out_list = [l for l in inp_list if str(year) in l]
@@ -69,38 +68,31 @@ class SDG15_1_1(SDGBase):
         
 
     def get_lists_by_year(self):
-        """__summary__
-
-        Parameters
-        ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+       
+    """Creates list of files required for analysis matched by year. 
 
         Returns
         -------
-        bool
-            __returns__
+      lists_by_year: List[str]
+          
 
         """
         return self._lists_by_year
         
         
     def calculate_multiple_years(self, year_start: int, year_end: int, n: int = 1) -> bool:
-        """__summary__
+        """Allows for the calulation of SDG for multiple years
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        year_start: int
+            Starting year
+        year_end: int
+            Ending year
 
         Returns
         -------
         bool
-            __returns__
 
         """
         nfi_shps = self.get_ext_files('gb_nfi', 'shp')
@@ -135,19 +127,25 @@ class SDG15_1_1(SDGBase):
 
     
     def calculate_sdg(self, lad_file_path: str, sam_file_path: str, nfi_file_path: str, year: int, save_shp_file: bool = False) -> bool:
-        """__summary__
+        """Calulates Sustainable Development Goal and plots result
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        lad_file_path:str
+            Location/directory of land boundary files
+        sam_file_path: str
+            Location/directory of standard area measurements
+        nfi_file_path
+            Location/directory of National Forest Inventory data
+        year: int
+            The year for which data was published 
+        save_shape_file
+            Option to output save as .shp file 
 
         Returns
         -------
         bool
-            __returns__
+      
 
         """
         important_col = f'lad{year-2000}cd'
@@ -169,7 +167,7 @@ class SDG15_1_1(SDGBase):
 
         lad_gdf[f'pct_woodland_{year}'] = pct_groupby
 
-        lad_gdf.plot(column=f'pct_woodland_{year}', figsize=(20, 20),cmap='Greens', legend=True)
+        lad_gdf.plot(column=f'pct_woodland_{year}', figsize=(20, 20),cmap='YlGn', legend=True)
         plt.title(f'Percentage of woodland by LAD for {year}')
         plt.savefig(f"{self._output_data_dir}/{year}_LAD_pct_woodland.jpeg")               
         self.save_data(pct_groupby, f'{year}_LAD_pct_woodland')
