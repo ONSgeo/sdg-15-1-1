@@ -5,7 +5,7 @@
 /analysis_outputs
 /QA
 *.csv
-data/
+*data/
 *output/
 
 # gitignore python template below
