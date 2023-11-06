@@ -15,6 +15,7 @@ dependencies = [
     "matplotlib=3.2.2",
     "shapely=1.7.1",
     "typing",
+    "openpyxl>3.0.7",
 ]
 
 [project.optional-dependencies]

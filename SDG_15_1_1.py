@@ -154,7 +154,7 @@ if __name__ == '__main__':
     # join gdf_join_ni and SAM csv to add lad area column to gdf_join_ni and calculate area
     
     #intersect lad boundaries with forest layer to create a spatial join
-    do_spatial_join(nfi19ni, lad19bfe)
+    gdf_join = do_spatial_join(nfi19ni, lad19bfe)
 
     gdf_join.head()
 

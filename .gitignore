@@ -6,6 +6,7 @@
 /QA
 *.csv
 data/
+*output/
 
 # gitignore python template below
 # Byte-compiled / optimized / DLL files
