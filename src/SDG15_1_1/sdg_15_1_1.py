@@ -17,9 +17,8 @@ class SDG15_1_1(SDGBase):
         The standard area measurement of each Local Authority District.
     National Forest Inventory (NFI)
         Woodland cover
-        
     """
-        
+    
     
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """To retrieve input and save output data
@@ -37,13 +36,12 @@ class SDG15_1_1(SDGBase):
         -------
         None
         """
-        
+
         self._sdg_name = 'sdg_15_1_1'
         super().__init__(self._sdg_name, root_dir, data_dir, output_dir)
 
-        
+
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
-        
         """Retrieves files based on year of interest
         
         Parameters
@@ -57,8 +55,6 @@ class SDG15_1_1(SDGBase):
         Returns
         -------
         List: str
-            
-        
         """
         out_list = [l for l in inp_list if str(year) in l]
         if len(out_list) != n:
@@ -66,32 +62,29 @@ class SDG15_1_1(SDGBase):
         return out_list
         
 
-    def get_lists_by_year(self):
-       
+    def get_lists_by_year(self) -> List[str]:
         """Creates list of files required for analysis matched by year. 
-
+        
         Returns
         -------
             lists_by_year: List[str]
-
         """
         return self._lists_by_year
         
         
     def calculate_multiple_years(self, year_start: int, year_end: int, n: int = 1) -> bool:
         """Allows for the calulation of SDG for multiple years
-
+        
         Parameters
         ----------
         year_start: int
             Starting year
         year_end: int
             Ending year
-
+            
         Returns
         -------
         bool
-
         """
         nfi_shps = self.get_ext_files('gb_nfi', 'shp')
         sam_xlsx = self.get_ext_files('*', 'xlsx', 'SAM_LAD')
@@ -126,7 +119,7 @@ class SDG15_1_1(SDGBase):
     
     def calculate_sdg(self, lad_file_path: str, sam_file_path: str, nfi_file_path: str, year: int, save_shp_file: bool = False) -> bool:
         """Calulates Sustainable Development Goal and plots result
-
+        
         Parameters
         ----------
         lad_file_path:str
@@ -139,12 +132,10 @@ class SDG15_1_1(SDGBase):
             The year for which data was published 
         save_shape_file
             Option to output save as .shp file 
-
+            
         Returns
         -------
         bool
-
-
         """
         important_col = f'lad{year-2000}cd'
 
