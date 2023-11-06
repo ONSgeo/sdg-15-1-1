@@ -30,7 +30,7 @@ class SDGBase(ABC):
 
     """
     
-    def __init__(self, root_in_dir: str, root_out_dir: Optional[str] = None) -> None:
+    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """__summary__
 
         Parameters
@@ -46,15 +46,13 @@ class SDGBase(ABC):
             __returns__
 
         """
-        self.set_root_in_dir(root_in_dir)
+        self._root_dir = root_dir
+        self._sdg_name = sdg_name
         
-        if root_out_dir is not None:
-            self.set_output_dir(root_out_dir)
-        else:
-            self.set_output_dir(root_in_dir)          
-
+        self.set_file_tree(data_dir, output_dir)
         
-    def set_root_in_dir(self, root_in_dir: str) -> None:
+        
+    def set_input_data_dir(self, root_in_dir: str) -> None:
         """__summary__
 
         Parameters
@@ -70,11 +68,11 @@ class SDGBase(ABC):
             __returns__
 
         """
-        self._root_in_dir = root_in_dir
-        self.create_folders(self._root_in_dir)
+        self._input_data_dir = root_in_dir
+        self.create_folders(self._input_data_dir)
 
         
-    def get_root_in_dir(self) -> str:
+    def get_input_data_dir(self) -> str:
         """__summary__
 
         Parameters
@@ -90,10 +88,10 @@ class SDGBase(ABC):
             __returns__
 
         """
-        return self._root_in_dir
+        return self._input_data_dir
 
     
-    def set_output_dir(self, root_out_dir: str) -> None:
+    def set_output_data_dir(self, root_out_dir: str) -> None:
         """__summary__
 
         Parameters
@@ -109,11 +107,11 @@ class SDGBase(ABC):
             __returns__
 
         """
-        self._output_dir = f'{root_out_dir}/'
+        self._output_data_dir = f'{root_out_dir}/'
         self.create_folders(self._output_dir)
 
         
-    def get_output_dir(self) -> str:
+    def get_output_data_dir(self) -> str:
         """__summary__
 
         Parameters
@@ -129,9 +127,30 @@ class SDGBase(ABC):
             __returns__
 
         """
-        return self._output_dir
+        return self._output_data_dir
 
     
+    def set_file_tree(self, input_data_dir: str = None, output_data_dir: str = None) -> None:
+        
+        if input_data_dir is None:
+            self._input_data_dir = f'{self._root_dir}/{self._sdg_name}_data'
+        else:
+            self._input_data_dir = input_data_dir
+            
+        if output_data_dir is None:
+            self._output_data_dir = f'{self._root_dir}/{self._sdg_name}_output'
+        else:
+            self._output_data_dir = output_data_dir
+            
+        self._test_in_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_data'
+        self._test_out_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_output'
+
+        file_tree = [self._input_data_dir, self._output_data_dir, self._test_in_dir, self._test_out_dir]
+        
+        for branch in file_tree:
+            self.create_folders(branch)
+
+            
     def create_folders(self, new_dir: str) -> bool:
         """__summary__
 
@@ -171,7 +190,7 @@ class SDGBase(ABC):
             __returns__
 
         """
-        all_files = glob.glob(f'{self.get_root_in_dir()}/{inp_folder}/*.{ext}')
+        all_files = glob.glob(f'{self.get_input_data_dir()}/{inp_folder}/*.{ext}')
         if search_string:
             all_files = [f for f in all_files if search_string in f]
         return all_files
@@ -249,9 +268,9 @@ class SDGBase(ABC):
 
         """
         if isinstance(file, pd.DataFrame):
-            file.to_csv(f'{self.get_output_dir()}{file_name}.csv')
+            file.to_csv(f'{self.get_output_data_dir()}/{file_name}.csv')
         if isinstance(file, gpd.GeoDataFrame):
-            file.to_file(f'{self.get_output_dir()}{file_name}.shp')
+            file.to_file(f'{self.get_output_data_dir()}/{file_name}.shp')
         return True
     
     
