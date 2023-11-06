@@ -15,15 +15,16 @@ class SDGBase(ABC):
     
     Attributes
     ----------
-    root_in_dir : str
+    _root_dir : str
         Main directory in which data is stored. 
-    output_dir : str
-        Description of `attr2`.
+    _sdg_name : str
+        The specific SDG eg 'sdg_15_1_1'
     """
     
-    def __init__(self, root_in_dir: str, root_out_dir: Optional[str] = None) -> None:
+   
+    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """Defines input and output directories for data
-        
+
         Parameters
         ----------
         root_in_dir: str
@@ -36,15 +37,14 @@ class SDGBase(ABC):
         -------
         None
         """
-        self.set_root_in_dir(root_in_dir)
         
-        if root_out_dir is not None:
-            self.set_output_dir(root_out_dir)
-        else:
-            self.set_output_dir(root_in_dir)          
-
+        self._root_dir = root_dir
+        self._sdg_name = sdg_name
         
-    def set_root_in_dir(self, root_in_dir: str) -> None:
+        self.set_file_tree(data_dir, output_dir)
+        
+        
+    def set_input_data_dir(self, root_in_dir: str) -> None:
         """Sets directory and creates folders from which data is input 
 
         Parameters
@@ -56,21 +56,22 @@ class SDGBase(ABC):
         -------
         None
         """
-        self._root_in_dir = root_in_dir
-        self.create_folders(self._root_in_dir)
+        
+        self._input_data_dir = root_in_dir
+        self.create_folders(self._input_data_dir)
 
         
-    def get_root_in_dir(self) -> str:
+    def get_input_data_dir(self) -> str:
         """returns main directory in which data is stored.
 
         Returns
         -------
         str
         """
-        return self._root_in_dir
+        return self._input_data_dir
 
     
-    def set_output_dir(self, root_out_dir: str) -> None:
+    def set_output_data_dir(self, root_out_dir: str) -> None:
         """sets directory and creates folders for data outputs
 
         Parameters
@@ -82,21 +83,44 @@ class SDGBase(ABC):
         -------
         None
         """
-        self._output_dir = f'{root_out_dir}/'
+        
+        self._output_data_dir = f'{root_out_dir}/'
         self.create_folders(self._output_dir)
 
-        
-    def get_output_dir(self) -> str:
+
+    def get_output_data_dir(self) -> str:
         """Returns directory in which outputs are stored
 
         Returns
         -------
         str
         """
-        return self._output_dir
+        
+        return self._output_data_dir
 
     
-    def create_folders(self, new_dir: str) -> bool:
+    def set_file_tree(self, input_data_dir: Optional[str] = None, output_data_dir: Optional[str] = None) -> None:
+        
+        if input_data_dir is None:
+            self._input_data_dir = f'{self._root_dir}/{self._sdg_name}_data'
+        else:
+            self._input_data_dir = input_data_dir
+            
+        if output_data_dir is None:
+            self._output_data_dir = f'{self._root_dir}/{self._sdg_name}_output'
+        else:
+            self._output_data_dir = output_data_dir
+            
+        self._test_in_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_data'
+        self._test_out_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_output'
+
+        file_tree = [self._input_data_dir, self._output_data_dir, self._test_in_dir, self._test_out_dir]
+        
+        for branch in file_tree:
+            self.create_folders(branch)
+
+            
+    def create_folders(self, new_dir: str) -> None:
         """Creates folders to store output data
 
         Parameters
@@ -106,8 +130,13 @@ class SDGBase(ABC):
   
         Returns
         -------
-        bool
+        None
+        
+        Raises
+        -------
+            Catches any error in making the file
         """
+        
         try:
             os.makedirs(new_dir, exist_ok=True)
             print(f'Directory {new_dir} was created or already existed')
@@ -123,27 +152,28 @@ class SDGBase(ABC):
         inp_folder: str
             Folder containing input data of interest
         ext: str
-            Files containing input data of interest?
+            The extension being searched for
         search_string: Optional[str]
-             Searches for keyword(s) within folder of interest
+            Searches for keyword(s) within folder of interest
             
         Returns
         -------
         list[str]
         """
-        all_files = glob.glob(f'{self.get_root_in_dir()}/{inp_folder}/*.{ext}')
+        all_files = glob.glob(f'{self.get_input_data_dir()}/{inp_folder}/*.{ext}')
         if search_string:
             all_files = [f for f in all_files if search_string in f]
         return all_files
     
     
     def _get_read_function(self, ext: str) -> Callable:
-        """Reads input files based on file type. 
+        """Returns the relevent read method based on the
+           input extension
 
         Parameters
         ----------
         ext: str
-            Files containing data of interest
+            The extension being searched for
             
         Returns
         -------
@@ -191,7 +221,7 @@ class SDGBase(ABC):
 
     
     def save_data(self, file: Union[pd.DataFrame, gpd.GeoDataFrame], file_name: str) -> bool:
-        """Saves data as .csv or .shp, dependent on data frame
+        """Saves data as .csv or .shp, dependent on dataframe
 
         Parameters
         ----------
@@ -205,9 +235,9 @@ class SDGBase(ABC):
         bool
         """
         if isinstance(file, pd.DataFrame):
-            file.to_csv(f'{self.get_output_dir()}{file_name}.csv')
+            file.to_csv(f'{self.get_output_data_dir()}/{file_name}.csv')
         if isinstance(file, gpd.GeoDataFrame):
-            file.to_file(f'{self.get_output_dir()}{file_name}.shp')
+            file.to_file(f'{self.get_output_data_dir()}/{file_name}.shp')
         return True
     
     

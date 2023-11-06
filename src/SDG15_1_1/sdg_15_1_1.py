@@ -1,4 +1,4 @@
-from sdg_15_1_1.src.SDG15_1_1.sdg_base import SDGBase
+from .sdg_base import SDGBase
 from typing import List, Optional
 from tqdm import tqdm
 import pandas as pd
@@ -20,10 +20,10 @@ class SDG15_1_1(SDGBase):
 
     """
     
-    def __init__(self, root_in_dir: str, root_out_dir: Optional[str] = None) -> None:
-        
+      
+    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """To retrieve input and save output data
- 
+
         Parameters
         ----------
         root_in_dir: str
@@ -39,8 +39,7 @@ class SDG15_1_1(SDGBase):
         """
         
         self._sdg_name = 'sdg_15_1_1'
-        self._output_dir = f'{root_out_dir}{self._sdg_name}_output'
-        super().__init__(root_in_dir, self._output_dir)
+        super().__init__(self._sdg_name, root_dir, data_dir, output_dir)
 
         
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
@@ -170,9 +169,7 @@ class SDG15_1_1(SDGBase):
 
         lad_gdf.plot(column=f'pct_woodland_{year}', figsize=(20, 20),cmap='YlGn', legend=True)
         plt.title(f'Percentage of woodland by LAD for {year}')
-        plt.xlabel('')
-        plt.ylable('')
-        plt.savefig(f"{self._output_dir}/{year}_LAD_pct_woodland.jpeg")               
+        plt.savefig(f"{self._output_data_dir}/{year}_LAD_pct_woodland.jpeg")               
         self.save_data(pct_groupby, f'{year}_LAD_pct_woodland')
         
         if save_shp_file:
