@@ -21,7 +21,7 @@ class SDGBase(ABC):
         The specific SDG eg 'sdg_15_1_1'
     """
     
-   
+    
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """Defines input and output directories for data
 

@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 
 class SDG15_1_1(SDGBase):
-        """Retrieval, analysis and output of data concerning Sustainable Development Goals 
-
+    """Retrieval, analysis and output of data concerning Sustainable Development Goals 
+    
     Attributes
     ----------
     Local Authority Districts (LAD)
@@ -17,22 +17,22 @@ class SDG15_1_1(SDGBase):
         The standard area measurement of each Local Authority District.
     National Forest Inventory (NFI)
         Woodland cover
-
+        
     """
+        
     
-      
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """To retrieve input and save output data
-
+        
         Parameters
         ----------
         root_in_dir: str
             The main directory that the data is stored
-            For example: 'C:\Users\{user}\Scripts\geo_work\sdg_15_1_1\data'
+            For example: 'C:/Users/{user}/Scripts/geo_work/sdg_15_1_1/data'
         root_out_dir: Optional[str]
             This is for if the user wants to save the output elsewhere
             If not the root out directory will be the same as the input directory
- 
+            
         Returns
         -------
         None
@@ -45,7 +45,7 @@ class SDG15_1_1(SDGBase):
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
         
         """Retrieves files based on year of interest
-
+        
         Parameters
         ----------
         inp_list: List[str]
@@ -53,13 +53,12 @@ class SDG15_1_1(SDGBase):
         year: int
             The year each file was published. 
         n: int ?
-
+        
         Returns
         -------
         List: str
             
         
-
         """
         out_list = [l for l in inp_list if str(year) in l]
         if len(out_list) != n:
@@ -69,12 +68,11 @@ class SDG15_1_1(SDGBase):
 
     def get_lists_by_year(self):
        
-    """Creates list of files required for analysis matched by year. 
+        """Creates list of files required for analysis matched by year. 
 
         Returns
         -------
-      lists_by_year: List[str]
-          
+            lists_by_year: List[str]
 
         """
         return self._lists_by_year
@@ -145,7 +143,7 @@ class SDG15_1_1(SDGBase):
         Returns
         -------
         bool
-      
+
 
         """
         important_col = f'lad{year-2000}cd'
