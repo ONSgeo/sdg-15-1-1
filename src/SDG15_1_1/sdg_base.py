@@ -12,7 +12,6 @@ from tqdm import tqdm
 
 class SDGBase(ABC):   
     """
-    
     Attributes
     ----------
     _root_dir : str
@@ -21,8 +20,8 @@ class SDGBase(ABC):
         The specific SDG eg 'sdg_15_1_1'
     """
     
-    
-    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
+   
+    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None, logger: bool = False) -> None:
         """Defines input and output directories for data
 
         Parameters
@@ -40,6 +39,7 @@ class SDGBase(ABC):
         
         self._root_dir = root_dir
         self._sdg_name = sdg_name
+        self._logger = logger
         
         self.set_file_tree(data_dir, output_dir)
         
@@ -139,7 +139,8 @@ class SDGBase(ABC):
         
         try:
             os.makedirs(new_dir, exist_ok=True)
-            print(f'Directory {new_dir} was created or already existed')
+            if self._logger:
+                print(f'Directory {new_dir} was created or already existed')
         except Exception as e:
             print(f'Unable to make directory {new_dir} because of error {e}')
         

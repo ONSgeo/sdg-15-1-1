@@ -14,7 +14,21 @@ class UserParams:
         self.output_dir = None
         
         # the starting year for multiple year exports
+        # the ONLY year for single year exports
         self.year_start = 2017
         
         # the ending year for multiple year exports
         self.year_end = 2022
+        
+        # if only testing a single year
+        # Note this requires all the file paths below to be populated
+        self.single_year_test = False
+        
+        # The specific path to the LAD file for the single year
+        self.lad_file_path = None
+        
+        # The specific path to the SAM file for the single year
+        self.sam_file_path = None
+        
+        # The specific path to the NFI file for the single year
+        self.nfi_file_path = None
