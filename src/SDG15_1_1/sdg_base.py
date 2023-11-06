@@ -11,40 +11,30 @@ from tqdm import tqdm
 
 
 class SDGBase(ABC):   
-    """The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
-
+    """
+    
     Attributes
     ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
+    root_in_dir : str
+        Main directory in which data is stored. 
+    output_dir : str
         Description of `attr2`.
-
     """
     
     def __init__(self, root_in_dir: str, root_out_dir: Optional[str] = None) -> None:
-        """__summary__
-
+        """Defines input and output directories for data
+        
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_in_dir: str
+            The main directory in which data is stored
+        root_out_dir: Optional[str]
+            This is for if the user wants to save the output elsewhere
+            If not the root out directory will be the same as the input directory
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
         self.set_root_in_dir(root_in_dir)
         
@@ -55,98 +45,68 @@ class SDGBase(ABC):
 
         
     def set_root_in_dir(self, root_in_dir: str) -> None:
-        """__summary__
+        """Sets directory and creates folders from which data is input 
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_in_dir: str
+            The main directory in which data is stored 
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
         self._root_in_dir = root_in_dir
         self.create_folders(self._root_in_dir)
 
         
     def get_root_in_dir(self) -> str:
-        """__summary__
-
-        Parameters
-        ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        """returns main directory in which data is stored.
 
         Returns
         -------
-        bool
-            __returns__
-
+        str
         """
         return self._root_in_dir
 
     
     def set_output_dir(self, root_out_dir: str) -> None:
-        """__summary__
+        """sets directory and creates folders for data outputs
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        root_out_dir: str
+            The directory in which outputs are stored
 
         Returns
         -------
-        bool
-            __returns__
-
+        None
         """
         self._output_dir = f'{root_out_dir}/'
         self.create_folders(self._output_dir)
 
         
     def get_output_dir(self) -> str:
-        """__summary__
-
-        Parameters
-        ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        """Returns directory in which outputs are stored
 
         Returns
         -------
-        bool
-            __returns__
-
+        str
         """
         return self._output_dir
 
     
     def create_folders(self, new_dir: str) -> bool:
-        """__summary__
+        """Creates folders to store output data
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        new_dir: str
+            Directory in which to store output data
+  
         Returns
         -------
         bool
-            __returns__
-
         """
         try:
             os.makedirs(new_dir, exist_ok=True)
@@ -156,20 +116,20 @@ class SDGBase(ABC):
         
         
     def get_ext_files(self, inp_folder: str, ext: str, search_string: Optional[str] = None) -> List[str]:
-        """__summary__
+        """Retrieves input files
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        inp_folder: str
+            Folder containing input data of interest
+        ext: str
+            Files containing input data of interest?
+        search_string: Optional[str]
+             Searches for keyword(s) within folder of interest
+            
         Returns
         -------
-        bool
-            __returns__
-
+        list[str]
         """
         all_files = glob.glob(f'{self.get_root_in_dir()}/{inp_folder}/*.{ext}')
         if search_string:
@@ -178,20 +138,16 @@ class SDGBase(ABC):
     
     
     def _get_read_function(self, ext: str) -> Callable:
-        """__summary__
+        """Reads input files based on file type. 
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
-
+        ext: str
+            Files containing data of interest
+            
         Returns
         -------
-        bool
-            __returns__
-
+        Callable
         """
         data_read_dict = {
             'csv' : pd.read_csv,
@@ -202,20 +158,22 @@ class SDGBase(ABC):
     
     
     def load_data(self, file_path: str, cols: List[str] = None, index: str = None, epsg: int = 27700) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
-        """__summary__
+        """Joins and loads data of interest as a data frame
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        file_path: str
+            Location of files of interest
+        cols: List[str]
+            Columnn of interest
+        index: str
+            Row of interest?
+        espg: int
+            ESPG code of coordinate reference system used in files of interest
 
         Returns
         -------
-        bool
-            __returns__
-
+        File: Union[pd.DataFrame, gpd.GeoDataFrame]
         """
         ext = file_path.split('.')[-1]
         read_func = self._get_read_function(ext)
@@ -233,20 +191,18 @@ class SDGBase(ABC):
 
     
     def save_data(self, file: Union[pd.DataFrame, gpd.GeoDataFrame], file_name: str) -> bool:
-        """__summary__
+        """Saves data as .csv or .shp, dependent on data frame
 
         Parameters
         ----------
-        param1: type
-            The first parameter.
-        param2: type
-            The second parameter.
+        file: Union[pd.DataFrame, gpd.DataFrame]
+            Data of interest
+        file_name: str
+            Name of file containing output data of interest.
 
         Returns
         -------
         bool
-            __returns__
-
         """
         if isinstance(file, pd.DataFrame):
             file.to_csv(f'{self.get_output_dir()}{file_name}.csv')
