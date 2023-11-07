@@ -22,7 +22,7 @@ class UserParams:
         
         # if only testing a single year
         # Note this requires all the file paths below to be populated
-        self.single_year_test = False
+        self.single_year_test = True
         
         # The specific path to the LAD file for the single year
         self.lad_file_path = None
@@ -32,3 +32,8 @@ class UserParams:
         
         # The specific path to the NFI file for the single year
         self.nfi_file_path = None
+        
+        
+    def print_params(self):
+        for k, v in vars(self).items():
+            print(f'{k} = {v}')
