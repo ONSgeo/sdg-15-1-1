@@ -7,18 +7,22 @@ import matplotlib.pyplot as plt
 
 
 class SDG15_1_1(SDGBase):
-    """Retrieval, analysis and output of data concerning Sustainable Development Goals 
+    """Defines input and output directories for data.
     
-    Attributes
+    Attributes (inherited)
     ----------
-    Local Authority Districts (LAD)
-        Boundaries of Local Authority districts in the UK. 
-    Standard Area Measurements (SAM)
-        The standard area measurement of each Local Authority District.
-    National Forest Inventory (NFI)
-        Woodland cover
-    """
+    root_dir
+        The main directory in which data is stored.
+    input_data_dir
+        The main directory from which data is input.
+    output_data_dir
+        The main directory to which data is output.
+    test_in_dir
+        The main directory from which tests are drawn.
+    test_out_dir
+        The main directory to which tests are output.
     
+    """ 
     
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """To retrieve input and save output data
@@ -42,20 +46,22 @@ class SDG15_1_1(SDGBase):
 
 
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
-        """Retrieves files based on year of interest
-        
+        """Retrieves files based on year of interest.
+ 
         Parameters
         ----------
         inp_list: List[str]
             The input files.
         year: int
-            The year each file was published. 
-        n: int ?
-        
+            The year each file was published.
+        n: int
+            Expected number of files.
+ 
         Returns
         -------
         List: str
         """
+        
         out_list = [l for l in inp_list if str(year) in l]
         if len(out_list) != n:
             return None
@@ -122,15 +128,15 @@ class SDG15_1_1(SDGBase):
         
         Parameters
         ----------
-        lad_file_path:str
+        lad_file_path: str
             Location/directory of land boundary files
         sam_file_path: str
             Location/directory of standard area measurements
-        nfi_file_path
+        nfi_file_path: str
             Location/directory of National Forest Inventory data
         year: int
             The year for which data was published 
-        save_shape_file
+        save_shape_file: bool
             Option to output save as .shp file 
             
         Returns

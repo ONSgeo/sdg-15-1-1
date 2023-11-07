@@ -11,13 +11,20 @@ from tqdm import tqdm
 
 
 class SDGBase(ABC):   
-    """
+    """Defines input and output directories for data.
+ 
     Attributes
     ----------
-    _root_dir : str
-        Main directory in which data is stored. 
-    _sdg_name : str
-        The specific SDG eg 'sdg_15_1_1'
+    root_dir
+        The main directory in which data is stored.
+    input_data_dir
+        The main directory from which data is input.
+    output_data_dir
+        The main directory to which data is output.
+    test_in_dir
+        The main directory from which tests are drawn.
+    test_out_dir
+        The main directory to which tests are output.
     """
     
    
@@ -100,7 +107,20 @@ class SDGBase(ABC):
 
     
     def set_file_tree(self, input_data_dir: Optional[str] = None, output_data_dir: Optional[str] = None) -> None:
-        
+         """Sets file tree for input and output data.
+ 
+        Parameters
+        ----------
+        input_data_dir: str
+            The main directory from which data is input.
+        output_data_dir
+            The main directory to which data is output.    
+ 
+        Returns
+        -------
+        None
+        """
+            
         if input_data_dir is None:
             self._input_data_dir = f'{self._root_dir}/{self._sdg_name}_data'
         else:
