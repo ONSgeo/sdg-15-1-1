@@ -24,6 +24,9 @@ lint = [
     "black<24",
     "ruff",
 ]
+dev = [
+    "sdg15_1_1[lint]",
+]
 
 [tool.black]
 line-length = 79

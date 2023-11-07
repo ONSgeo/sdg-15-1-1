@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 import geopandas as gpd
 
-from src.SDG15_1_1 import SDG15_1_1
+from src.sdg15_1_1 import SDG15_1_1
 from user_params import UserParams
 
 
