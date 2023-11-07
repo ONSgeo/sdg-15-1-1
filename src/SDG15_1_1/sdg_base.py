@@ -127,16 +127,16 @@ class SDGBase(ABC):
         ----------
         new_dir: str
             Directory in which to store output data
-  
+
         Returns
         -------
         None
-        
+
         Raises
         -------
             Catches any error in making the file
         """
-        
+
         try:
             os.makedirs(new_dir, exist_ok=True)
             if self._logger:
@@ -156,7 +156,7 @@ class SDGBase(ABC):
             The extension being searched for
         search_string: Optional[str]
             Searches for keyword(s) within folder of interest
-            
+
         Returns
         -------
         list[str]
@@ -175,7 +175,7 @@ class SDGBase(ABC):
         ----------
         ext: str
             The extension being searched for
-            
+
         Returns
         -------
         Callable
