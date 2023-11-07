@@ -16,6 +16,7 @@ dependencies = [
     "shapely == 1.7.1",
     "typing",
     "openpyxl > 3.0.7",
+    "tqdm",
 ]
 
 [project.optional-dependencies]
