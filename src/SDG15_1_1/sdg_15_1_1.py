@@ -25,16 +25,16 @@ class SDG15_1_1(SDGBase):
     """ 
     
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
-        """To retrieve input and save output data
+        """To retrieve input and save output data.
         
         Parameters
         ----------
         root_in_dir: str
-            The main directory that the data is stored
+            The main directory that the data is stored.
             For example: 'C:/Users/{user}/Scripts/geo_work/sdg_15_1_1/data'
         root_out_dir: Optional[str]
-            This is for if the user wants to save the output elsewhere
-            If not the root out directory will be the same as the input directory
+            This is for if the user wants to save the output elsewhere.
+            If not the root out directory will be the same as the input directory.
             
         Returns
         -------
@@ -79,14 +79,14 @@ class SDG15_1_1(SDGBase):
         
         
     def calculate_multiple_years(self, year_start: int, year_end: int, n: int = 1) -> bool:
-        """Allows for the calulation of SDG for multiple years
+        """Allows for the calulation of SDG for multiple years.
         
         Parameters
         ----------
         year_start: int
-            Starting year
+            Starting year.
         year_end: int
-            Ending year
+            Ending year.
             
         Returns
         -------
@@ -124,20 +124,20 @@ class SDG15_1_1(SDGBase):
 
     
     def calculate_sdg(self, lad_file_path: str, sam_file_path: str, nfi_file_path: str, year: int, save_shp_file: bool = False) -> bool:
-        """Calulates Sustainable Development Goal and plots result
+        """Calulates Sustainable Development Goal and plots result.
         
         Parameters
         ----------
         lad_file_path: str
-            Location/directory of land boundary files
+            Location/directory of land boundary files.
         sam_file_path: str
-            Location/directory of standard area measurements
+            Location/directory of standard area measurements.
         nfi_file_path: str
-            Location/directory of National Forest Inventory data
+            Location/directory of National Forest Inventory data.
         year: int
-            The year for which data was published 
+            The year for which data was published. 
         save_shape_file: bool
-            Option to output save as .shp file 
+            Option to output save as .shp file. 
             
         Returns
         -------

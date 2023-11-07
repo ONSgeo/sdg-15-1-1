@@ -11,7 +11,8 @@ from tqdm import tqdm
 
 
 class SDGBase(ABC):   
-    """Defines input and output directories for data.
+    """Defines input and output directories for data, use of relevant read methods for data 
+    and joining of pandas and geopandas dataframes. 
  
     Attributes
     ----------
@@ -29,15 +30,15 @@ class SDGBase(ABC):
     
    
     def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None, logger: bool = False) -> None:
-        """Defines input and output directories for data
+        """Defines input and output directories for data.
 
         Parameters
         ----------
         root_in_dir: str
-            The main directory in which data is stored
+            The main directory in which data is stored.
         root_out_dir: Optional[str]
-            This is for if the user wants to save the output elsewhere
-            If not the root out directory will be the same as the input directory
+            This is for if the user wants to save the output elsewhere.
+            If not the root out directory will be the same as the input directory.
 
         Returns
         -------
@@ -52,12 +53,12 @@ class SDGBase(ABC):
         
         
     def set_input_data_dir(self, root_in_dir: str) -> None:
-        """Sets directory and creates folders from which data is input 
+        """Sets directory and creates folders from which data is input. 
 
         Parameters
         ----------
         root_in_dir: str
-            The main directory in which data is stored 
+            The main directory in which data is stored. 
 
         Returns
         -------
@@ -79,12 +80,12 @@ class SDGBase(ABC):
 
     
     def set_output_data_dir(self, root_out_dir: str) -> None:
-        """sets directory and creates folders for data outputs
+        """sets directory and creates folders for data outputs.
 
         Parameters
         ----------
         root_out_dir: str
-            The directory in which outputs are stored
+            The directory in which outputs are stored.
 
         Returns
         -------
@@ -96,7 +97,7 @@ class SDGBase(ABC):
 
 
     def get_output_data_dir(self) -> str:
-        """Returns directory in which outputs are stored
+        """Returns directory in which outputs are stored.
 
         Returns
         -------
@@ -141,12 +142,12 @@ class SDGBase(ABC):
 
             
     def create_folders(self, new_dir: str) -> None:
-        """Creates folders to store output data
+        """Creates folders to store output data.
 
         Parameters
         ----------
         new_dir: str
-            Directory in which to store output data
+            Directory in which to store output data.
 
         Returns
         -------
@@ -154,7 +155,7 @@ class SDGBase(ABC):
 
         Raises
         -------
-            Catches any error in making the file
+            Catches any error in making the file.
         """
 
         try:
@@ -166,16 +167,16 @@ class SDGBase(ABC):
         
         
     def get_ext_files(self, inp_folder: str, ext: str, search_string: Optional[str] = None) -> List[str]:
-        """Retrieves input files
+        """Retrieves input files.
 
         Parameters
         ----------
         inp_folder: str
-            Folder containing input data of interest
+            Folder containing input data of interest.
         ext: str
             The extension being searched for
         search_string: Optional[str]
-            Searches for keyword(s) within folder of interest
+            Searches for keyword(s) within folder of interest.
 
         Returns
         -------
@@ -189,7 +190,7 @@ class SDGBase(ABC):
     
     def _get_read_function(self, ext: str) -> Callable:
         """Returns the relevent read method based on the
-           input extension
+           input extension.
 
         Parameters
         ----------
@@ -209,18 +210,18 @@ class SDGBase(ABC):
     
     
     def load_data(self, file_path: str, cols: List[str] = None, index: str = None, epsg: int = 27700) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
-        """Joins and loads data of interest as a data frame
+        """Joins and loads data of interest as a data frame.
 
         Parameters
         ----------
         file_path: str
-            Location of files of interest
+            Location of files of interest.
         cols: List[str]
-            Columnn of interest
+            List of column names.
         index: str
-            Row of interest?
+            Selects column of interest.
         espg: int
-            ESPG code of coordinate reference system used in files of interest
+            ESPG code of coordinate reference system used in files of interest.
 
         Returns
         -------
@@ -242,7 +243,7 @@ class SDGBase(ABC):
 
     
     def save_data(self, file: Union[pd.DataFrame, gpd.GeoDataFrame], file_name: str) -> bool:
-        """Saves data as .csv or .shp, dependent on dataframe
+        """Saves data as .csv or .shp, dependent on dataframe.
 
         Parameters
         ----------
