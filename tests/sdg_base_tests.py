@@ -15,10 +15,8 @@ class TestSDGBase(unittest.TestCase):
     def setUpClass(cls):
         print('Setting up class')
     
-    
     def setUp(self):
         self._instance1 = SDG15_1_1('', params.root_dir)
-        
         
     def test_get_input_data_dir(self):
         print('running test_get_input_data_dir')

@@ -22,7 +22,7 @@ class UserParams:
         
         # if only testing a single year
         # Note this requires all the file paths below to be populated
-        self.single_year_test = True
+        self.single_year_test = False
         
         # The specific path to the LAD file for the single year
         self.lad_file_path = None
