@@ -107,8 +107,8 @@ class SDGBase(ABC):
 
     
     def set_file_tree(self, input_data_dir: Optional[str] = None, output_data_dir: Optional[str] = None) -> None:
-         """Sets file tree for input and output data.
- 
+        """Sets file tree for input and output data.
+        
         Parameters
         ----------
         input_data_dir: str
