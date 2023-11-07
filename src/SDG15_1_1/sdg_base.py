@@ -84,8 +84,8 @@ class SDGBase(ABC):
         None
         """
         
-        self._output_data_dir = f'{root_out_dir}/'
-        self.create_folders(self._output_dir)
+        self._output_data_dir = root_out_dir
+        self.create_folders(self._output_data_dir)
 
 
     def get_output_data_dir(self) -> str:

@@ -25,12 +25,20 @@ class TestSDGBase(unittest.TestCase):
         self.assertIsNotNone(self._instance1.get_input_data_dir())
         self.assertIsInstance(self._instance1.get_input_data_dir(), str)
     
-    
+    def test_set_input_data_dir(self):
+        print('running test_set_input_data_dir')
+        self._instance1.set_input_data_dir(params.root_dir)
+        self.assertEqual(self._instance1.get_input_data_dir(), params.root_dir)
+                
     def test_get_output_data_dir(self):
         print('running test_get_output_data_dir')
         self.assertIsNotNone(self._instance1.get_output_data_dir())
         self.assertIsInstance(self._instance1.get_output_data_dir(), str)
-        
+
+    def test_set_output_data_dir(self):
+        print('running test_set_output_data_dir')
+        self._instance1.set_output_data_dir(params.root_dir)
+        self.assertEqual(self._instance1.get_output_data_dir(), params.root_dir)
         
     def test_get_read_function(self):
         print('running test_get_read_function')
@@ -39,4 +47,5 @@ class TestSDGBase(unittest.TestCase):
         self.assertIs(self._instance1._get_read_function('shp'), gpd.read_file)
         
         
-    
+
+        
