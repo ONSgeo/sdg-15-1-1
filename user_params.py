@@ -1,7 +1,13 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
+
+
 class UserParams:
     def __init__(self):
         # the root directory to work from
-        self.root_dir = r'C:\Users\astlel\scripts\geo_work\sdg-15-1-1' 
+        self.root_dir = os.getenv('ROOT_DIR')
         
         # the directory where the data is located
         # if none the class will assume it is in: f'{self._root_dir}/{self._sdg_name}_data'
