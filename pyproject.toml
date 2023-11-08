@@ -17,6 +17,7 @@ dependencies = [
     "typing",
     "openpyxl > 3.0.7",
     "tqdm",
+    "python-dotenv",
 ]
 
 [project.optional-dependencies]
