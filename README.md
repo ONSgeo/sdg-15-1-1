@@ -18,7 +18,9 @@ According to the Food and Agriculture Organization of the United Nations (FAO), 
 ### Useage
     
     Before using SDG15_1_1_Calulate.ipynb and SDG15_1_1_Analysis.ipynb, a .env file should be made to set the user parameters. To do this,
-    open Notepad and write ROOT_DIR= and the main directory you'd like to work from,  eg. ROOT_DR=C:\Users\Your_username\Scripts\sdg15_1_1.     Save this notepad as an ENV file (by simply saving as .env) in the main directory you'd like to work from.
+    open Notepad and write ROOT_DIR= and the main directory you'd like to work from,  eg: 
+    ROOT_DIR=C:\Users\Your_username\Scripts\sdg15_1_1     
+    Save this notepad as an ENV file (by simply saving as .env) in the main directory you'd like to work from.
 
     In order for this to be recognised, python-dotenv must be installed. To do this, go to CMD.exe Prompt in the Anaconda Navigator
     and enter: 
