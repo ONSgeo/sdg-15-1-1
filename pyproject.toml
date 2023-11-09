@@ -10,14 +10,15 @@ requires-python = ">=3.8"
 version = "0.0.1"
 dependencies = [
     "geopandas == 0.13.2",
-    "pandas == 2.0.3",
-    "numpy == 1.20.3",
     "matplotlib == 3.2.2",
-    "shapely == 1.7.1",
-    "typing",
+    "numexpr==2.7.3",
+    "numpy == 1.20.3",
     "openpyxl > 3.0.7",
-    "tqdm",
+    "pandas == 2.0.3",
     "python-dotenv",
+    "shapely == 1.7.1",
+    "tqdm",
+    "typing"
 ]
 
 [project.optional-dependencies]
