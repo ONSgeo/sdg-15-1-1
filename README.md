@@ -15,6 +15,19 @@ According to the Food and Agriculture Organization of the United Nations (FAO), 
 
 **Land area**  is the country area excluding area under inland waters and coastal waters. For this analysis, total land area is calculated using Standard Area Measurements (**SAM**) available on the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=name&tags=all(PRD_SAM)). All measurements provided are ‘flat’ as they do not take into account variations in relief e.g. mountains and valleys. Measurements are given in hectares (10,000 square metres) to 2 decimal places. Four types of measurements are included: total extent (AREAEHECT), area to mean high water (coastline) (AREACHECT), area of inland water (AREAIHECT) and area to mean high water excluding area of inland water (land area) (AREALHECT) which is the type used for this analysis.
 
+### Useage
+    
+    Before using SDG15_1_1_Calulate.ipynb and SDG15_1_1_Analysis.ipynb, a .env file should be made to set the user parameters. To do this,
+    open Notepad and write ROOT_DIR= and the main directory you'd like to work from,  eg: 
+    ROOT_DIR=C:\Users\Your_username\Scripts\sdg15_1_1     
+    Save this notepad as an ENV file (by simply saving as .env) in the main directory you'd like to work from.
+
+    In order for this to be recognised, python-dotenv must be installed. To do this, go to CMD.exe Prompt in the Anaconda Navigator
+    and enter: 
+    pip install python-dotenv 
+    
+    
+
 ### Data
 
        Forest/Woodland data - Forestry Commission Open Data (GB) and DAERA (NI).  
