@@ -3,7 +3,7 @@ from user_params import UserParams
 
 def run(params: UserParams) -> None:
     
-    gfr = SDG15_1_1('', params.root_dir, params.data_dir, params.output_dir)
+    gfr: SDG15_1_1 = SDG15_1_1('', params.root_dir, params.data_dir, params.output_dir)
 
     if params.single_year_test and all([params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start]):
         print(f'Running single year export for year: {params.year_start}')

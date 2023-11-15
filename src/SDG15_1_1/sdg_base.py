@@ -3,11 +3,8 @@ from collections.abc import Callable
 from abc import ABC, abstractmethod
 import pandas as pd
 import geopandas as gpd
-import matplotlib
-import matplotlib.pyplot as plt
 import glob
 import os
-from tqdm import tqdm
 
 
 class SDGBase(ABC):   
@@ -29,7 +26,7 @@ class SDGBase(ABC):
     """
     
    
-    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None, logger: bool = False) -> None:
+    def __init__(self, sdg_name: str, root_dir: Optional[str], data_dir: Optional[str] = None, output_dir: Optional[str] = None, logger: bool = False) -> None:
         """Defines input and output directories for data.
 
         Parameters
@@ -45,14 +42,14 @@ class SDGBase(ABC):
         None
         """
         
-        self._root_dir = root_dir
-        self._sdg_name = sdg_name
-        self._logger = logger
+        self._root_dir: Optional[str] = root_dir
+        self._sdg_name: str = sdg_name
+        self._logger: bool = logger
         
         self.set_file_tree(data_dir, output_dir)
         
         
-    def set_input_data_dir(self, root_in_dir: str) -> None:
+    def set_input_data_dir(self, root_in_dir: Optional[str]) -> None:
         """Sets directory and creates folders from which data is input. 
 
         Parameters
@@ -65,11 +62,11 @@ class SDGBase(ABC):
         None
         """
         
-        self._input_data_dir = root_in_dir
+        self._input_data_dir: Optional[str] = root_in_dir
         self.create_folders(self._input_data_dir)
 
         
-    def get_input_data_dir(self) -> str:
+    def get_input_data_dir(self) -> Optional[str]:
         """returns main directory in which data is stored.
 
         Returns
@@ -79,7 +76,7 @@ class SDGBase(ABC):
         return self._input_data_dir
 
     
-    def set_output_data_dir(self, root_out_dir: str) -> None:
+    def set_output_data_dir(self, root_out_dir: Optional[str]) -> None:
         """sets directory and creates folders for data outputs.
 
         Parameters
@@ -92,11 +89,11 @@ class SDGBase(ABC):
         None
         """
         
-        self._output_data_dir = root_out_dir
+        self._output_data_dir: Optional[str] = root_out_dir
         self.create_folders(self._output_data_dir)
 
 
-    def get_output_data_dir(self) -> str:
+    def get_output_data_dir(self) -> Optional[str]:
         """Returns directory in which outputs are stored.
 
         Returns
@@ -132,10 +129,10 @@ class SDGBase(ABC):
         else:
             self._output_data_dir = output_data_dir
             
-        self._test_in_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_data'
-        self._test_out_dir = f'{self._root_dir}/tests_data/{self._sdg_name}_output'
+        self._test_in_dir: str = f'{self._root_dir}/tests_data/{self._sdg_name}_data'
+        self._test_out_dir: str = f'{self._root_dir}/tests_data/{self._sdg_name}_output'
 
-        file_tree = [self._input_data_dir, self._output_data_dir, self._test_in_dir, self._test_out_dir]
+        file_tree: List[str] = [self._input_data_dir, self._output_data_dir, self._test_in_dir, self._test_out_dir]
         
         for branch in file_tree:
             self.create_folders(branch)
@@ -182,7 +179,7 @@ class SDGBase(ABC):
         -------
         list[str]
         """
-        all_files = glob.glob(f'{self.get_input_data_dir()}/{inp_folder}/*.{ext}')
+        all_files: List[str] = glob.glob(f'{self.get_input_data_dir()}/{inp_folder}/*.{ext}')
         if search_string:
             all_files = [f for f in all_files if search_string in f]
         return all_files
@@ -209,7 +206,7 @@ class SDGBase(ABC):
         return data_read_dict[ext]
     
     
-    def load_data(self, file_path: str, cols: List[str] = None, index: str = None, epsg: int = 27700) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
+    def load_data(self, file_path: str, cols: Optional[List[str]] = None, index: Optional[str] = None, epsg: int = 27700) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
         """Joins and loads data of interest as a data frame.
 
         Parameters
@@ -227,9 +224,9 @@ class SDGBase(ABC):
         -------
         File: Union[pd.DataFrame, gpd.GeoDataFrame]
         """
-        ext = file_path.split('.')[-1]
+        ext: str = file_path.split('.')[-1]
         read_func = self._get_read_function(ext)
-        df = read_func(file_path)
+        df: Union[pd.DataFrame, gpd.GeoDataFrame] = read_func(file_path)
         df.columns = df.columns.str.lower()
         if cols:
             df = df[cols]
@@ -264,6 +261,6 @@ class SDGBase(ABC):
     
     
     @abstractmethod
-    def calculate_sdg(self):
+    def calculate_sdg(self) -> None:
         pass
     

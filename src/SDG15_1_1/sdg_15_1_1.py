@@ -1,5 +1,5 @@
 from .sdg_base import SDGBase
-from typing import List, Optional
+from typing import Dict, List, Optional
 from tqdm import tqdm
 import pandas as pd
 import geopandas as gpd
@@ -24,7 +24,7 @@ class SDG15_1_1(SDGBase):
     
     """ 
     
-    def __init__(self, sdg_name: str, root_dir: str, data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
+    def __init__(self, sdg_name: str, root_dir: Optional[str], data_dir: Optional[str] = None, output_dir: Optional[str] = None) -> None:
         """To retrieve input and save output data.
         
         Parameters
@@ -45,7 +45,7 @@ class SDG15_1_1(SDGBase):
         super().__init__(self._sdg_name, root_dir, data_dir, output_dir)
 
 
-    def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> List[str]:
+    def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> Optional[List[str]]:
         """Retrieves files based on year of interest.
  
         Parameters
@@ -62,7 +62,7 @@ class SDG15_1_1(SDGBase):
         List: str
         """
         
-        out_list = [l for l in inp_list if str(year) in l]
+        out_list: List[str] = [l for l in inp_list if str(year) in l]
         if len(out_list) != n:
             return None
         return out_list
@@ -92,17 +92,17 @@ class SDG15_1_1(SDGBase):
         -------
         bool
         """
-        nfi_shps = self.get_ext_files('gb_nfi', 'shp')
-        sam_xlsx = self.get_ext_files('*', 'xlsx', 'SAM_LAD')
-        lad_shps = self.get_ext_files('LADs', 'shp')
+        nfi_shps: List[str] = self.get_ext_files('gb_nfi', 'shp')
+        sam_xlsx: List[str] = self.get_ext_files('*', 'xlsx', 'SAM_LAD')
+        lad_shps: List[str] = self.get_ext_files('LADs', 'shp')
         
-        file_lists = [lad_shps, sam_xlsx, nfi_shps]
+        file_lists: List[List[str]] = [lad_shps, sam_xlsx, nfi_shps]
 
-        self._lists_by_year = {}
+        self._lists_by_year: Dict[str, List[str]] = {}
 
         for year in range(year_start, year_end+1):
 
-            year_list = []
+            year_list: List[str] = []
             for file_list in file_lists:
                 year_list.append(self._get_file_by_year(file_list, year, n))
 
@@ -114,16 +114,16 @@ class SDG15_1_1(SDGBase):
             if None in self._lists_by_year[year]:
                 continue
 
-            lad_file_path = self._lists_by_year[year][0][0]
-            sam_file_path = self._lists_by_year[year][1][0]
-            nfi_file_path = self._lists_by_year[year][2][0]
+            lad_file_path: str = self._lists_by_year[year][0][0]
+            sam_file_path: str = self._lists_by_year[year][1][0]
+            nfi_file_path: str = self._lists_by_year[year][2][0]
             
             self.calculate_sdg(lad_file_path, sam_file_path, nfi_file_path, year)
     
         return True
 
     
-    def calculate_sdg(self, lad_file_path: str, sam_file_path: str, nfi_file_path: str, year: int, save_shp_file: bool = False) -> bool:
+    def calculate_sdg(self, lad_file_path: Optional[str], sam_file_path: Optional[str], nfi_file_path: Optional[str], year: int, save_shp_file: bool = False) -> bool:
         """Calulates Sustainable Development Goal and plots result.
         
         Parameters
@@ -143,21 +143,21 @@ class SDG15_1_1(SDGBase):
         -------
         bool
         """
-        important_col = f'lad{year-2000}cd'
+        important_col: str = f'lad{year-2000}cd'
 
-        lad_gdf = self.load_data(lad_file_path, index=important_col)
-        sam_df = self.load_data(sam_file_path)
-        nfi_gdf = self.load_data(nfi_file_path)
+        lad_gdf: gpd.GeoDataFrame = self.load_data(lad_file_path, index=important_col)
+        sam_df: pd.DataFrame = self.load_data(sam_file_path)
+        nfi_gdf: gpd.GeoDataFrame = self.load_data(nfi_file_path)
 
-        woodland = nfi_gdf[nfi_gdf['category'] == 'Woodland']
-        shared_cols = [col for col in lad_gdf.columns if col in sam_df.columns]
-        lad_sam_gdf = lad_gdf.merge(sam_df, on=shared_cols)
+        woodland: gpd.GeoDataFrame = nfi_gdf[nfi_gdf['category'] == 'Woodland']
+        shared_cols: List[str] = [col for col in lad_gdf.columns if col in sam_df.columns]
+        lad_sam_gdf: gpd.GeoDataFrame = lad_gdf.merge(sam_df, on=shared_cols)
 
-        lad_sam_woodland_gdf = gpd.sjoin(lad_sam_gdf, woodland, how='left')
+        lad_sam_woodland_gdf: gpd.GeoDataFrame = gpd.sjoin(lad_sam_gdf, woodland, how='left')
 
         lad_sam_woodland_gdf[f'pct_woodland_{year}'] = lad_sam_woodland_gdf['area_ha'] / lad_sam_woodland_gdf['arealhect'] * 100
 
-        pct_groupby = lad_sam_woodland_gdf.groupby(important_col)[[f'pct_woodland_{year}']].sum()
+        pct_groupby: gpd.GeoDataFrame = lad_sam_woodland_gdf.groupby(important_col)[[f'pct_woodland_{year}']].sum()
         self.save_data(pct_groupby, f'{year}_LAD_pct_woodland')
 
         lad_gdf[f'pct_woodland_{year}'] = pct_groupby
