@@ -78,7 +78,7 @@ class SDG15_1_1(SDGBase):
         return self._lists_by_year
         
         
-    def calculate_multiple_years(self, year_start: int, year_end: int, n: int = 1) -> bool:
+    def calculate_multiple_years(self, year_start: int, year_end: int, n: int = 1, save_shp_file: bool = False) -> bool:
         """Allows for the calulation of SDG for multiple years.
         
         Parameters

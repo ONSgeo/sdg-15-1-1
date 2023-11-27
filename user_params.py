@@ -40,7 +40,9 @@ class UserParams:
         # The specific path to the NFI file for the single year
         self.nfi_file_path: Optional[str] = None
         
-        
+        # Option to save the resulting shp file (warning: makes performance extremely slow)
+        self.save_shp_file: bool = False
+
     def print_params(self) -> None:
         for k, v in vars(self).items():
             print(f'{k} = {v}')

@@ -7,11 +7,11 @@ def run(params: UserParams) -> None:
 
     if params.single_year_test and all([params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start]):
         print(f'Running single year export for year: {params.year_start}')
-        gfr.calculate_sdg(params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start)
+        gfr.calculate_sdg(params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start, save_shp_file=params.save_shp_file)
 
     if not params.single_year_test and all([params.year_start, params.year_end]):
         print(f'Running multi year export for years: {params.year_start}-{params.year_end}')
-        gfr.calculate_multiple_years(params.year_start, params.year_end)
+        gfr.calculate_multiple_years(params.year_start, params.year_end, save_shp_file=params.save_shp_file)
 
     else:
         print('Execution failed, please check necessary params:\n')
