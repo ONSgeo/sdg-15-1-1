@@ -1,4 +1,6 @@
-from .sdg_base import SDGBase
+from sdg_base.src.sdg_base_src.sdg_base import SDGBase
+from user_params import UserParams
+
 from typing import Dict, List, Optional
 from tqdm import tqdm
 import pandas as pd
@@ -118,7 +120,7 @@ class SDG15_1_1(SDGBase):
             sam_file_path: str = self._lists_by_year[year][1][0]
             nfi_file_path: str = self._lists_by_year[year][2][0]
             
-            self.calculate_sdg(lad_file_path, sam_file_path, nfi_file_path, year)
+            self.calculate_sdg(lad_file_path, sam_file_path, nfi_file_path, year, save_shp_file)
     
         return True
 
@@ -171,3 +173,21 @@ class SDG15_1_1(SDGBase):
             self.save_data(lad_sam_woodland_gdf, f'{year}_LAD_pct_woodland')
         
         return True
+
+
+
+def run_sdg15_1_1(params: UserParams) -> None:
+    
+    gfr: SDG15_1_1 = SDG15_1_1('', params.root_dir, params.data_dir, params.output_dir)
+
+    if params.single_year_test and all([params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start]):
+        print(f'Running single year export for year: {params.year_start}')
+        gfr.calculate_sdg(params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start, save_shp_file=params.save_shp_file)
+
+    if not params.single_year_test and all([params.year_start, params.year_end]):
+        print(f'Running multi year export for years: {params.year_start}-{params.year_end}')
+        gfr.calculate_multiple_years(params.year_start, params.year_end, save_shp_file=params.save_shp_file)
+
+    else:
+        print('Execution failed, please check necessary params:\n')
+        params.print_params()
