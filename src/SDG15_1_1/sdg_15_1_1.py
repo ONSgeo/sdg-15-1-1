@@ -45,6 +45,7 @@ class SDG15_1_1(SDGBase):
 
         self._sdg_name = 'sdg_15_1_1'
         super().__init__(self._sdg_name, root_dir, data_dir, output_dir)
+        print(f"{self._sdg_name} Initialised")
 
 
     def _get_file_by_year(self, inp_list: List[str], year: int, n: int) -> Optional[List[str]]:
@@ -179,7 +180,7 @@ class SDG15_1_1(SDGBase):
 def run_sdg15_1_1(params: UserParams) -> None:
     
     gfr: SDG15_1_1 = SDG15_1_1('', params.root_dir, params.data_dir, params.output_dir)
-
+    
     if params.single_year_test and all([params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start]):
         print(f'Running single year export for year: {params.year_start}')
         gfr.calculate_sdg(params.lad_file_path, params.sam_file_path, params.nfi_file_path, params.year_start, save_shp_file=params.save_shp_file)

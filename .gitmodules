@@ -1,6 +1,3 @@
-[submodule "src/sdg_base"]
-	path = src/sdg_base
-	url = https://github.com/ONSgeo/sdg_base.git
 [submodule "src/SDG15_1_1/sdg_base"]
 	path = src/SDG15_1_1/sdg_base
 	url = https://github.com/ONSgeo/sdg_base.git
