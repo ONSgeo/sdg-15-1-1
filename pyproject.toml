@@ -27,7 +27,7 @@ lint = [
     "ruff",
 ]
 dev = [
-    "SDG15_1_1[lint]",
+    "sdg_15_1_1_src[lint]",
 ]
 
 [tool.black]
