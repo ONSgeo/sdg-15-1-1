@@ -1,12 +1,11 @@
-from src.sdg_15_1_1_src.sdg_base.src.sdg_base_src.sdg_base import SDGBase
-from user_params import UserParams
-
 from typing import Dict, List, Optional
 from tqdm import tqdm
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt 
 
+from src.sdg_15_1_1_src.sdg_base.src.sdg_base_src.sdg_base import SDGBase
+from user_params import UserParams
 
 class SDG15_1_1(SDGBase):
     """Defines input and output directories for data.
