@@ -9,7 +9,40 @@ Included in the 17 SDGs is Goal 15, which aims to ["Protect, restore and promote
 This code aims to provide an automated calculation of SDG indicator 15.1.1 for the timely reporting on progress towards Goal 15. The most recent reporting of this indicator by the UK covers the years [2013-2022](https://sdgdata.gov.uk/15-1-1/).
 
 ## Set-up 
-?
+Usage
+1. Clone this repository into the directory you'd like to work from.
+
+2. In the command-line interface, navigate to the root folder of the project and enter:
+
+    `pip install .`
+
+3. Create a .env file to set the user parameters. To do this, open Notepad and write ROOT_DIR= and the directory you'd like to work from, eg:
+
+    `ROOT_DIR=C:\Users\username\scripts\sdg15_1_1`
+    
+    Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
+
+4. The **UserParams class (found in `user_params.py`) is where unique parameters are defined for the SDG indicator calculation.**
+   
+   It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
+   
+   if `self.data_dir: Optional[str] = None`:
+   
+   data will be stored in: `C:\Users\username\scripts\SDGs\sdg_x_x_x_data`
+
+   else if `self.data_dir: Optional[str] = "C:\Users\username\somewhere_else"`:
+
+   data will be stored in: `C:\Users\username\somewhere_else`
+
+   This is also true for the output directory, where the default directory for output data will be: 'C:\Users\username\scripts\SDGs\sdg_x_x_x_output'
+
+   For this SDG indicator the other user parameters are:
+     - `year_start`: The starting year for multiple year exports or the ONLY year for single year exports
+     - `year_end`: The ending year for multiple year exports
+     - `single_year_test`: Boolean flag to only test a single year or multiple
+     - `lad_file_path`: The specific path to the LAD file for the single year
+     - `sam_file_path`: The specific path to the SAM file for the single year
+     - `nfi_file_path`: The specific path to the NFI file for the single year
 
 
 ## Usage 
