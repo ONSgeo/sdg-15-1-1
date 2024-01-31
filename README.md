@@ -45,9 +45,6 @@ Usage
      - `nfi_file_path`: The specific path to the NFI file for the single year
 
 
-## Usage 
-?
-
 ## Input Data
 
 This SDG indicator requires 2 distinct data types to be input: 
