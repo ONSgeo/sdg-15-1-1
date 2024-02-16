@@ -81,10 +81,9 @@ Great Britain (land area): Standard Area Measurements (SAM), ONS Open Geography 
 
 Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open Geography Portal. 
 (https://geoportal.statistics.gov.uk/)
+
         
-
-
-
+## Notes
 
 
 ### Considerations and future work
