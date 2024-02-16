@@ -22,7 +22,7 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
     
     Save this as the extension ".env" in the root directory. 
 
-5. The **Specify user parameters:** `user_params.py` requires user input:
+5. **Specify user parameters:** `user_params.py` requires user input:
 
 - `root directory` will be taken from the environment variable.
 - `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
