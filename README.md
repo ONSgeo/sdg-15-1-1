@@ -74,9 +74,13 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 ### Outputs
 
-- .csv file (forest area as a proportion of total land area for each specified land division).
-- .jpeg (choropleth map of forest area as a proportion of total land area).
--  Optional shapefile for further geospatial nalaysis. 
+- Forest area as a proportion of total land area for each specified land division, csv.
+- Choropeth map of forest area as a proportion of total land area, .jpeg.
+- Optional shapefile for further geospatial nalaysis. 
+
+    
+## Notes
+
 
 ### Previously used data sources
     
@@ -88,9 +92,6 @@ Great Britain (land area): Standard Area Measurements (SAM), ONS Open Geography 
 
 Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open Geography Portal. 
 (https://geoportal.statistics.gov.uk/)
-
-        
-## Notes
 
 ### Considerations 
 
