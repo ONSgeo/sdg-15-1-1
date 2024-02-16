@@ -6,7 +6,7 @@ Included in the 17 SDGs is Goal 15, which aims to ["Protect, restore and promote
 
 This code aims to provide an automated calculation of SDG indicator 15.1.1 for the timely reporting on progress towards Goal 15. The most recent reporting of this indicator by the UK covers the years [2013-2022](https://sdgdata.gov.uk/15-1-1/).
 
-## Set-up and usage
+## Set-up
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
@@ -38,11 +38,12 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 ## Usage
 
-SDG15_1_1_Calculate.ipynb produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
+
+`SDG15_1_1_Calculate.ipynb` produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
     
-SDG15-1_1_Analysis.ipynb allows plotting of a time series of forest area as a proportion of total land area for each land division across available years.   
+`SDG15-1_1_Analysis.ipynb` allows plotting of a time series of forest area as a proportion of total land area for each land division across available years.   
        
-## Input Data
+### Input Data
 
 This SDG indicator requires 2 distinct data types to be input: 
 
@@ -58,6 +59,18 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 [Further detail on requirements for SGG 15.1.1 as specified by the UN.](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) 
 
+### Methodology
+
+1. A new geo-dataframe is created from the "Woodland" column of forest geo-dataframe. 
+
+2. Standard area measurements (dataframe) are merged with administrative boundaries (geo-dataframe) on a shared column, creating a new geo-dataframe with spatial context to standard area measurements. The shared column is calculated automatically and is likely to be area name or code. 
+
+3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover w=there is within that same boundary. It also retains it's geometry column and can be plotted.
+
+4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area. 
+
+### Outputs
+
 ### Previously used data sources
     
 Great Britain (forest cover): Forest Research Open Data.
@@ -70,17 +83,7 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 (https://geoportal.statistics.gov.uk/)
         
 
-## Methodology
 
-1. A new geo-dataframe is created from the "Woodland" column of forest geo-dataframe. 
-
-2. Standard area measurements (dataframe) are merged with administrative boundaries (geo-dataframe) on a shared column, creating a new geo-dataframe with spatial context to standard area measurements. The shared column is calculated automatically and is likely to be area name or code. 
-
-3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover w=there is within that same boundary. It also retains it's geometry column and can be plotted.
-
-4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area. 
-
-## Outputs
 
 
 
