@@ -66,15 +66,17 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 1. A new geo-dataframe is created from the "Woodland" column of forest geo-dataframe. 
 
-2. Standard area measurements (dataframe) are merged with administrative boundaries (geo-dataframe) on a shared column, creating a new geo-dataframe with spatial context to standard area measurements. The shared column is calculated automatically and is likely to be area name or code. 
+2. Standard area measurements (dataframe) are merged with administrative boundaries (geo-dataframe) on a shared column, creating a new geo-dataframe with spatial context to standard area measurements. The shared column is calculated automatically based upon similarity and is likely to be area name or code. 
 
-3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover w=there is within that same boundary. It also retains it's geometry column and can be plotted.
+3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover there is within that same boundary. It also retains it's geometry column and can be plotted.
 
 4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area. 
 
 ### Outputs
 
-.csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). Optional shapefile for further geospatial nalaysis. 
+- .csv file (forest area as a proportion of total land area for each specified land division).
+- .jpeg (choropleth map of forest area as a proportion of total land area).
+-  Optional shapefile for further geospatial nalaysis. 
 
 ### Previously used data sources
     
