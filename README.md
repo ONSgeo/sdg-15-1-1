@@ -52,7 +52,7 @@ This SDG indicator requires 2 distinct data types to be input:
 
 1. **A spatial representation of forest or woodland areas in the country of interest.** The assumed format for this data is .shp. 
 
-3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granulairty of these areas, the more detailed the output. The assumed format of this data set is .csv. 
+3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granularity of these areas, the more detailed the output. The assumed format of this data set is .csv. 
 
 2. **Boundaries of administrative areas.** These provide spatial context for the standard area measurements and as such should match the granularity of areas with available standard area measurements. Where present, full resolution and extent should be used. The assumed format of this data is .shp.
 
@@ -68,19 +68,19 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 2. Standard area measurements (dataframe) are merged with administrative boundaries (geo-dataframe) on a shared column, creating a new geo-dataframe with spatial context to standard area measurements. The shared column is calculated automatically based upon similarity and is likely to be area name or code. 
 
-3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover there is within that same boundary. It also retains it's geometry column and can be plotted.
+3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover there is within that same boundary. It also retains its geometry column and can be plotted.
 
 4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area.
 
-Full programatic calculation and methodology is found within `in sdg_15_1_1_src/sdg_15_1_1.py`. 
+Full programmatic calculation and methodology is found within `in sdg_15_1_1_src/sdg_15_1_1.py`. 
 
 ### Outputs
 
 Currently available outputs include:
 
 - Forest area as a proportion of total land area for each specified land division (csv).
-- Choropeth map of forest area as a proportion of total land area (jpeg).
-- Optional shapefile for further geospatial nalaysis. 
+- Choropleth map of forest area as a proportion of total land area (jpeg).
+- Optional shapefile for further geospatial analysis. 
 
     
 ## Notes
@@ -99,15 +99,15 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 
 ### Considerations 
 
-- The methodology of this indicator calcualtion is based upon assumed inpout data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
-- The definition of what consistute a forest is variable across countries and may cause discrepancies in this calcualtion. 
-- Standard Area Measurements and other land cover estimates do not usually account for land relief and therefore come with an inherrent degree of inaccuracy.
+- The methodology of this indicator calculation is based upon assumed input data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
+- The definition of what constitutes a forest is variable across countries and may cause discrepancies in this calculation. 
+- Standard Area Measurements and other land cover estimates do not usually account for land relief and therefore come with an inherent degree of inaccuracy.
 - Please consult the [UN indicator requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) for further considerations.
 
 ### Future work
 
-- The input data and methodolofy should be comprehsivenly compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) wehn considering improvements.
--  As you might be able to tell, this was our first go at a reproducible calculation for an SDG indicator and there are a couple of rookie mistakes. The most annoying is perhaps that the column containing the land cover of interest is specified in the scipt as "woodland" and this is not set to be modifiable within the user parameters. If the land cover of interest is not "Woodland" (perhaps it's recorded instead as "Forest") this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
+- The input data and methodology should be comprehensively compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) when considering improvements.
+-  As you might be able to tell, this was our first go at a reproducible calculation for an SDG indicator and there are a couple of rookie mistakes. The most annoying is perhaps that the column containing the land cover of interest is specified in the script as "woodland" and this is not set to be modifiable within the user parameters. If the land cover of interest is not "Woodland" (perhaps it's recorded instead as "Forest") this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`. Please consider using a similar structure to that found in SDG-11-3-1 where these problems have been accounted for.
    
 
 #### Authors
