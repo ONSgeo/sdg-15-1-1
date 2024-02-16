@@ -99,15 +99,17 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 
 ### Considerations 
 
--Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
-- firest defintion varies between countries.
--  - As this was our first go at a reproducible calculation for an SDG, the column containing the land cover of interest is "woodland" and this is not modifiable within the user parameters. If the land cover of interest is no longer labelled "woodland", perhaps recorded instead as "forest", this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
- - standard area measurements do not include land relief and therefore come with a degree of inaccuracy. 
-
+- The methodology of this indicator calcualtion is based upon assumed inpout data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
+- The definition of what consistute a forest is variable across countries and may cause discrepancies in this calcualtion. 
+- Standard Area Measurements and other land cover estimates do not usually account for land relief and therefore come with an inherrent degree of inaccuracy.
+- Please consult the [UN indicator requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) for further considerations.
 
 ### Future work
 
-- Read UN associated metadata. 
+- The input data and methodolofy should be comprehsivenly compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) wehn considering improvements.
+-  As you might be able to tell, this was our first go at a reproducible calculation for an SDG indicator and there are a couple of rookie mistakes. The most annoying is perhaps that the column containing the land cover of interest is specified in the scipt as "woodland" and this is not set to be modifiable within the user parameters. If the land cover of interest is not "Woodland" (perhaps it's recorded instead as "Forest") this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
+   
 
+#### Authors
 
-       
+Ed Cuss (EdCussONS) & Lucy Astley-Jones (LucyAstleyJonesONS).
