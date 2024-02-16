@@ -1,12 +1,15 @@
 ## Introduction
 
+
 The Sustainable Development Goals (SDGs) are part of the UN 2030 Agenda for Sustainable Development. The Office for National Statistics (ONS) reports the UK data for the SDG indicators on the [UK Sustainable Development Goals webpage](https://sdgdata.gov.uk/), contributing to progress towards a sustainable global future. 
 
 Included in the 17 SDGs is Goal 15, which aims to ["Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification and halt and reverse land degradation and halt biodiversity loss"](https://sdgs.un.org/goals/goal15). One indicator that supports this goal is **15.1.1: Forest area as a proportion of total land area**. 
 
 This code aims to provide an automated calculation of SDG indicator 15.1.1 for the timely reporting on progress towards Goal 15. The most recent reporting of this indicator by the UK covers the years [2013-2022](https://sdgdata.gov.uk/15-1-1/).
 
+
 ## Set-up
+
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
@@ -39,9 +42,9 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 ## Usage
 
 
-`SDG15_1_1_Calculate.ipynb` produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
+`SDG15_1_1_Calculate.ipynb` calculates SDG 15.1.1 for each specified year.
     
-`SDG15-1_1_Analysis.ipynb` allows plotting of a time series of forest area as a proportion of total land area for each land division across available years.   
+`SDG15-1_1_Analysis.ipynb` allows for the plotting of a time series of SDG 15.1.1 across available years.   
        
 ### Input Data
 
@@ -49,13 +52,13 @@ This SDG indicator requires 2 distinct data types to be input:
 
 1. **A spatial representation of forest or woodland areas in the country of interest.** A forest or woodland is defined by the UN as being over 0.5 hectare with canopy cover of 10% (or the potential to achieve it), however this definition is variable between countries. The likely format for this data is .shp. 
 
-3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. If it can be found by administrative area, this provides a more detailed output. The likely format of this data set is .csv. 
+3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granulairty of these areas, the more detailed the output. The likely format of this data set is .csv. 
 
-2. **Boundaries of administrative areas.** These provide spatial context for the standard area measurements and as such should match the areas with available standard area measurements. Where present, full resolution and extent should be used. The likely format of this data is .shp.
+2. **Boundaries of administrative areas.** These provide spatial context for the standard area measurements and as such should match the granularity of areas with available standard area measurements. Where present, full resolution and extent should be used. The likely format of this data is .shp.
 
-Data used to calculate this SDG should be sampled from the same year.   
+Each data source used to calculate this SDG should be sampled from the same year(s).   
 
-Since the United Kingdom is made up of four countries, each with their own methods of collecting and publishing data, total input data may amount to more than 2 sources. The SDG indicator should only be calculated using this code for countries where a full input dataset is available. 
+Since the United Kingdom is made up of four countries, each with their own methods of collecting and publishing data, total input data may amount to more than 2 sources. The SDG indicator should only be calculated for countries where a full input dataset is available. 
 
 [Further detail on requirements for SGG 15.1.1 as specified by the UN.](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) 
 
@@ -70,6 +73,8 @@ Since the United Kingdom is made up of four countries, each with their own metho
 4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area. 
 
 ### Outputs
+
+.csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). Optional shapefile for further geospatial nalaysis. 
 
 ### Previously used data sources
     
