@@ -27,16 +27,16 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 5. **Specify user parameters:** `user_params.py` requires user input:
 
-- `root directory` will be taken from the environment variable.
-- `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
-- `output_dir` refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
+- `root directory`: will be taken from the environment variable.
+- `data_dir`: refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
+- `output_dir`: refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
 - **if only calculating for a single year**, set `single_year_test` to True.
-- `year_start` expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
-- `year_end` expects the ending year for multiple year exports. If calculating for a single year, this will take None.
+- `year_start`: expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
+- `year_end`: expects the ending year for multiple year exports. If calculating for a single year, this will take None.
 - `lad_file_path`: takes the specific path to the LAD file for the single year.
 - `sam_file_path`: takes the specific path to the SAM file for the single year.
 - `nfi_file_path`: takes the specific path to the NFI file for the single year.
-- `save_shp_file` will save results as shapefiles if set to True. This will impact performance speed. 
+- `save_shp_file`: will save results as shapefiles if set to True. This will impact performance speed. 
 
 
 ## Usage
