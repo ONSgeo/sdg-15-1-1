@@ -50,11 +50,11 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 This SDG indicator requires 2 distinct data types to be input: 
 
-1. **A spatial representation of forest or woodland areas in the country of interest.** A forest or woodland is defined by the UN as being over 0.5 hectare with canopy cover of 10% (or the potential to achieve it), however this definition is variable between countries. The likely format for this data is .shp. 
+1. **A spatial representation of forest or woodland areas in the country of interest.** A forest or woodland is defined by the UN as being over 0.5 hectare with canopy cover of 10% (or the potential to achieve it), however this definition is variable between countries. The assumed format for this data is .shp. 
 
-3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granulairty of these areas, the more detailed the output. The likely format of this data set is .csv. 
+3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granulairty of these areas, the more detailed the output. The assumed format of this data set is .csv. 
 
-2. **Boundaries of administrative areas.** These provide spatial context for the standard area measurements and as such should match the granularity of areas with available standard area measurements. Where present, full resolution and extent should be used. The likely format of this data is .shp.
+2. **Boundaries of administrative areas.** These provide spatial context for the standard area measurements and as such should match the granularity of areas with available standard area measurements. Where present, full resolution and extent should be used. The assumed format of this data is .shp.
 
 Each data source used to calculate this SDG should be sampled from the same year(s).   
 
@@ -90,8 +90,11 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
         
 ## Notes
 
+### Considerations 
 
-### Considerations and future work
+Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
+
+### Future work
 
 #### Methods
  - As this was our first go at a reproducible calculation for an SDG, the column containing the land cover of interest is "woodland" and this is not modifiable within the user parameters. If the land cover of interest is no longer labelled "woodland", perhaps recorded instead as "forest", this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
@@ -99,9 +102,5 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 #### Biases
  - standard area measurements do not include land relief and therefore come with a degree of inaccuracy. 
 
-### Definitions	
 
-**Land area** is the country area excluding area under inland waters and coastal waters. For this analysis, total land area is calculated using Standard Area Measurements (**SAM**) available on the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=name&tags=all(PRD_SAM)). All measurements provided are ‘flat’ as they do not take into account variations in relief eg. mountains and valleys. Measurements are given in hectares (10,000 square metres) to 2 decimal places. Four types of measurements are included: total extent (AREAEHECT), area to mean high water (coastline) (AREACHECT), area of inland water (AREAIHECT) and area to mean high water excluding area of inland water (land area) (AREALHECT) which is the type used for this analysis.
-
-    
        
