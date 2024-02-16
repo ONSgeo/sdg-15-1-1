@@ -50,7 +50,7 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 This SDG indicator requires 2 distinct data types to be input: 
 
-1. **A spatial representation of forest or woodland areas in the country of interest.** A forest or woodland is defined by the UN as being over 0.5 hectare with canopy cover of 10% (or the potential to achieve it), however this definition is variable between countries. The assumed format for this data is .shp. 
+1. **A spatial representation of forest or woodland areas in the country of interest.** The assumed format for this data is .shp. 
 
 3. **Standard Area Measurements for the land of interest**. This provides the total land area to divide land area covered by forest by. The higher the granulairty of these areas, the more detailed the output. The assumed format of this data set is .csv. 
 
@@ -92,7 +92,8 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 
 ### Considerations 
 
-Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
+-Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
+- firest defintion varies between countries. 
 
 ### Future work
 
