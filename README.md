@@ -6,7 +6,7 @@ Included in the 17 SDGs is Goal 15, which aims to ["Protect, restore and promote
 
 This code aims to provide an automated calculation of SDG indicator 15.1.1 for the timely reporting on progress towards Goal 15. The most recent reporting of this indicator by the UK covers the years [2013-2022](https://sdgdata.gov.uk/15-1-1/).
 
-## Set-up 
+## Set-up and usage
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
@@ -27,15 +27,15 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 - `root directory` will be taken from the environment variable.
 - `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
 - `output_dir` refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
-- **if only calculating for a single year**, set single_year_test to True.
+- **if only calculating for a single year**, set `single_year_test` to True.
+- `year_start` expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
+- `year_end` expects the ending year for multiple year exports. If calculating for a single year, this will take None.
 - `lad_file_path`: takes the specific path to the LAD file for the single year.
 - `sam_file_path`: takes the specific path to the SAM file for the single year.
 - `nfi_file_path`: takes the specific path to the NFI file for the single year.
-- `year_start` expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
-- `year_end` expects the ending year for multiple year exports. If calculating for a single year, this will take None.
 - `save_shp_file` will save results as shapefiles if set to True. This will impact performance speed. 
 
-  
+
 ## Usage
 
 SDG15_1_1_Calculate.ipynb produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
