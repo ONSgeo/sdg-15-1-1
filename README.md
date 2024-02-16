@@ -70,12 +70,16 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 3. A spatial join is conducted between this new geo-dataframe and woodland geo-dataframe. The resultant geo-dataframe contains information on how much total land there is within an administrative boundary, and how much forest cover there is within that same boundary. It also retains it's geometry column and can be plotted.
 
-4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area. 
+4. ((area covered by woodland / total land area) *100) yields the forest area as a percentage of total land area.
+
+Full programatic calculation and methodology is found within `in sdg_15_1_1_src/sdg_15_1_1.py`. 
 
 ### Outputs
 
-- Forest area as a proportion of total land area for each specified land division, csv.
-- Choropeth map of forest area as a proportion of total land area, .jpeg.
+Currently available outputs include:
+
+- Forest area as a proportion of total land area for each specified land division (csv).
+- Choropeth map of forest area as a proportion of total land area (jpeg).
 - Optional shapefile for further geospatial nalaysis. 
 
     
@@ -96,15 +100,14 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 ### Considerations 
 
 -Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
-- firest defintion varies between countries. 
+- firest defintion varies between countries.
+-  - As this was our first go at a reproducible calculation for an SDG, the column containing the land cover of interest is "woodland" and this is not modifiable within the user parameters. If the land cover of interest is no longer labelled "woodland", perhaps recorded instead as "forest", this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
+ - standard area measurements do not include land relief and therefore come with a degree of inaccuracy. 
+
 
 ### Future work
 
-#### Methods
- - As this was our first go at a reproducible calculation for an SDG, the column containing the land cover of interest is "woodland" and this is not modifiable within the user parameters. If the land cover of interest is no longer labelled "woodland", perhaps recorded instead as "forest", this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`.
-
-#### Biases
- - standard area measurements do not include land relief and therefore come with a degree of inaccuracy. 
+- Read UN associated metadata. 
 
 
        
