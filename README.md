@@ -8,23 +8,28 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 ## Set-up 
 
-1. Clone this repository into the directory you'd like to work from.
+1. **Clone this repository** into the root directory you'd like to work from. 
 
-2. In the command-line interface, navigate to the root folder of the project and enter:
+2. **Install the SDG base class:** In the command-line interface, navigate to the root directory of the project and enter:
 
     `pip install .`
 
-3. Create a .env file to set the user parameters. To do this, open Notepad and write ROOT_DIR= and the directory you'd like to work from, eg:
+   The SDG base class handles methods common to all SDG indicator calculations and can be found in [this repository](https://github.com/ONSgeo/sdg_base).
 
-    `ROOT_DIR=C:\Users\username\scripts\sdg15_1_1`
+4. **Create an environment variable** to set the address of the root directory. Using environment variables negates the need to enter personal information into the script. Open Notepad and write:
+
+    `ROOT_DIR=C:\root\directory\address`
     
-    Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
+    Save this as the extension ".env" in the root directory. 
 
-4. The **UserParams class (found in `user_params.py`) is where unique parameters are defined for the SDG indicator calculation.**
+5. The **Specify user parameters:** `user_params.py` requires user input:
+
+       - `root directory` will be taken from the environment variable.
+       - `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
+       - `output_dir` refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
+       - `
    
-   It will assume that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
-   
-   if `self.data_dir: Optional[str] = None`:
+
    
    data will be stored in: `C:\Users\username\scripts\SDGs\sdg_x_x_x_data`
 
