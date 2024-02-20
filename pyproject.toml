@@ -18,16 +18,23 @@ dependencies = [
     "python-dotenv",
     "shapely == 1.7.1",
     "tqdm",
-    "typing"
+    "typing",
+    "hypothesis",
+    "pytest",
 ]
 
 [project.optional-dependencies]
+test = [
+    "hypothesis",
+    "pytest"
+]
+
 lint = [
     "black<24",
     "ruff",
 ]
 dev = [
-    "sdg_15_1_1_src[lint]",
+    "sdg_15_1_1_src[test, lint]",
 ]
 
 [tool.black]
