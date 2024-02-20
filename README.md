@@ -13,9 +13,11 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
-2. **Install the SDG base class:** In the command-line interface, navigate to the root directory of the project and enter:
+2. **Install the SDG base class:** Open git BASH in the cloned repository and run the following two commands:
 
-    `pip install .`
+    ```git submodule init```
+
+    ```git submodule update```
 
    The SDG base class handles methods common to all SDG indicator calculations and can be found in [this repository](https://github.com/ONSgeo/sdg_base).
 
