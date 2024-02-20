@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from tqdm import tqdm
 
-from src.sdg_15_1_1_src.sdg_base.src.sdg_base_src.sdg_base import SDGBase
+from src.sdg_15_1_1_src.sdg_base.base_src.sdg_base_src.sdg_base import SDGBase
 from user_params import UserParams
 
 
