@@ -21,13 +21,13 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
 
    The SDG base class handles methods common to all SDG indicator calculations and can be found in [this repository](https://github.com/ONSgeo/sdg_base).
 
-4. **Create an environment variable** to set the address of the root directory. Using environment variables negates the need to enter personal information into the script. Open Notepad and write:
+3. **Create an environment variable** to set the address of the root directory. Using environment variables negates the need to enter personal information into the script. Open Notepad and write:
 
     `ROOT_DIR=C:\root\directory\address`
     
     Save this as the extension ".env" in the root directory. 
 
-5. **Specify user parameters:** `user_params.py` requires user input:
+4. **Specify user parameters:** `user_params.py` requires user input:
 
 - `root directory`: will be taken from the environment variable.
 - `data_dir`: refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
