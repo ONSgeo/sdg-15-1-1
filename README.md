@@ -110,6 +110,7 @@ Great Britain (administrative areas): Local Authority Districts (BFE), ONS Open 
 
 - The input data and methodology should be comprehensively compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-15-01-01.pdf) when considering improvements.
 -  As you might be able to tell, this was our first go at a reproducible calculation for an SDG indicator and there are a couple of rookie mistakes. The most annoying is perhaps that the column containing the land cover of interest is specified in the script as "woodland" and this is not set to be modifiable within the user parameters. If the land cover of interest is not "Woodland" (perhaps it's recorded instead as "Forest") this will need to be modified within `sdg_15_1_1_src/sdg_15_1_1.py`. Please consider using a similar structure to that found in SDG-11-3-1 where these problems have been accounted for.
+-  The methodology of this calculator takes input data saved locally. The ability to directly stream input data, through an API or otherwise, is desirable but dependent on the data source. 
    
 
 #### Authors
