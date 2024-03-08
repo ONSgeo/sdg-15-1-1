@@ -50,7 +50,7 @@ This code aims to provide an automated calculation of SDG indicator 15.1.1 for t
        
 ### Input Data
 
-This SDG indicator requires 2 distinct data types to be input: 
+This SDG indicator requires 3 distinct data types to be input: 
 
 1. **A spatial representation of forest or woodland areas in the country of interest.** The assumed format for this data is .shp. 
 
